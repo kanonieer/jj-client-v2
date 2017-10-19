@@ -23,7 +23,7 @@ export class ImageService {
   public getImagesByJourney(journey_id: string): Observable<any> {
     const access_token = this.storageService.get('token');
 
-    return this.http.get(api + '/journeys/' + journey_id + '?access_token=' + access_token, this.options)
+    return this.http.get(api + '/imagesByJourneysId/' + journey_id + '?access_token=' + access_token, this.options)
       .map((response: Response) => response.json())
       .catch(handleError);
   }

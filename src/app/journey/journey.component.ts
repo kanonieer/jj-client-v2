@@ -23,7 +23,7 @@ export class JourneyComponent implements OnInit {
       const journey_id = params['id'];
 
       this.imageService.getImagesByJourney(journey_id)
-        .subscribe(data => this.images = data.images);
+        .subscribe(images => this.images = images);
     });
   }
 
