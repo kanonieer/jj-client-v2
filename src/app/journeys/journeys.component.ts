@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { JourneysService } from './journeys.service';
+import { JourneysService } from './../shared/services/journeys.service';
 import { Journey } from './../shared/models/Journey';
 
 @Component({
@@ -10,13 +10,21 @@ import { Journey } from './../shared/models/Journey';
 })
 export class JourneysComponent implements OnInit {
   public journeys: Journey[] = [];
+  public journeysList: Journey[] = [];
 
   constructor(private journeysService: JourneysService) {
     this.journeysService
     .getJourneys()
-    .subscribe(journeys => this.journeys = journeys);
+    .subscribe(journeys => {
+      this.journeys = journeys;
+      this.journeysList = journeys;
+     });
   }
 
   ngOnInit() {
+  }
+
+  private onSearch($event): void {
+    this.journeysList = this.journeys.filter(journey => journey.title.includes($event.target.value));
   }
 }

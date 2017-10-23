@@ -11,8 +11,10 @@ export class PolaroidComponent implements OnInit {
 
   @Input() image: Image;
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
+    console.log(this.image);
   }
 }

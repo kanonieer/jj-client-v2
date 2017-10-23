@@ -4,11 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
-import { handleError } from './../shared/global/errorHandler';
+import { handleError } from './../global/errorHandler';
 
-import { StorageService } from './../shared/services/storage.service';
-import { api } from './../shared/global/variables';
-import { Journey } from './../shared/models/Journey';
+import { StorageService } from './storage.service';
+import { api } from './../global/variables';
+import { Journey } from './../models/Journey';
 
 @Injectable()
 export class JourneysService {
@@ -25,6 +25,14 @@ export class JourneysService {
     const access_token = this.storageService.get('token');
 
     return this._http.get(api + '/journeys?access_token=' + access_token, this.options)
+      .map((response: Response) => response.json())
+      .catch(handleError);
+  }
+
+  getJourneyById(journey_id: string): Observable<Journey> {
+    const access_token = this.storageService.get('token');
+
+    return this._http.get(api + '/journeys/' + journey_id + '?access_token=' + access_token, this.options)
       .map((response: Response) => response.json())
       .catch(handleError);
   }

@@ -1,0 +1,57 @@
+@import './../../variables.less';
+
+.journeys {
+    &-filters {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 40px 20px;
+
+        &__list {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            color: @white;
+            
+            &-element {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+                align-items: center;
+                margin-right: 20px;
+
+                &:first-of-type {
+                color: @light-gray;
+                }
+
+                &> p {
+                margin-right: 10px; 
+                }
+            }
+        }
+
+        &> input {
+            background-color: @accent;
+            color: @white;
+            border-radius: 5px;
+            border-width: 0;
+            padding: 20px 30px;
+    
+            &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color: @text-primary;
+            }
+    
+            &::-moz-placeholder { /* Firefox 19+ */
+                color: @text-primary;
+            }   
+        }
+    }
+
+    &-list {
+        min-height: 70vh;
+        padding: 40px 0;
+        padding-bottom: 100px;
+    }
+}

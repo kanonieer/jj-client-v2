@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { Cloudinary } from 'cloudinary-core';
 import { CloudinaryModule } from '@cloudinary/angular-4.x';
-import * as  Cloudinary from 'cloudinary-core';
 
 import { AppComponent } from './app.component';
 import { JourneysComponent } from './journeys/journeys.component';
@@ -16,12 +16,21 @@ import { LoginComponent } from './login/login.component';
 import { StorageService } from './shared/services/storage.service';
 import { AuthService } from './shared/services/auth.service';
 import { UserService } from './shared/services/user.service';
-import { JourneysService } from './journeys/journeys.service';
+import { JourneysService } from './shared/services/journeys.service';
 import { IsLogged } from './shared/global/isLogged';
 import { PolaroidComponent } from './polaroid/polaroid.component';
 import { JourneyCardComponent } from './journey-card/journey-card.component';
 import { ImageService } from './shared/services/image.service';
 import { FooterComponent } from './footer/footer.component';
+
+
+const cloudConfig = {
+  cloud_name: 'dzgtgeotp'
+};
+
+const cloudinaryLib = {
+  Cloudinary: Cloudinary
+};
 
 @NgModule({
   declarations: [
@@ -37,7 +46,7 @@ import { FooterComponent } from './footer/footer.component';
     FooterComponent
   ],
   imports: [
-    CloudinaryModule.forRoot(Cloudinary, { cloud_name: 'dzgtgeotp'}),
+    CloudinaryModule.forRoot(cloudinaryLib, cloudConfig),
     BrowserModule,
     routing,
     FormsModule,

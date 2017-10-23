@@ -1,17 +1,12 @@
-<section class="hero is-danger">
-  <div class="container is-fullhd">
-    <div class="hero-body">
-      <p class="title">
-        <!-- {{ journey.title }} -->
-      </p>
-      <p class="subtitle">
-        11.07 - 18.07. <strong>128</strong> photos.
-      </p>
-    </div>
+<section class="wrapper-primary">
+  <div class="container journey-info">
+    <h1>{{ journey.title }}</h1>
+    <p>{{ journey.date_start | date:'shortDate' }} - {{ journey.date_end | date:'shortDate' }}</p>
+    <p>{{ images.length }} images</p>
   </div>
 </section>
-<section class="hero is-light">
-  <div class="container is-fullhd flex-container">
+<section class="wrapper-primary">
+  <div class="container flex-container journey-images">
     <app-polaroid *ngFor="let image of images" [image]='image'></app-polaroid>
   </div>
 </section>
