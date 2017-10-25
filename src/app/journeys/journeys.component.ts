@@ -24,7 +24,7 @@ export class JourneysComponent implements OnInit {
   ngOnInit() {
   }
 
-  private onSearch($event): void {
+  public onSearch($event): void {
     this.journeysList = this.journeys.filter(journey => journey.title.includes($event.target.value));
   }
 }
