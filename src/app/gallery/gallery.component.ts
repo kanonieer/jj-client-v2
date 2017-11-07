@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ImageService } from './../shared/services/image.service';
+import { Image } from './../shared/models/Image';
+
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
@@ -7,7 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GalleryComponent implements OnInit {
 
-  constructor() { }
+  public favouriteImages: Image[] = [];
+
+  constructor(
+    private imageService: ImageService
+  ) {
+    this.imageService.getFavouriteImages()
+    .subscribe(images => this.favouriteImages = images);
+  }
 
   ngOnInit() {
   }

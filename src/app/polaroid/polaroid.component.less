@@ -20,21 +20,6 @@
     &-image {
         width: 272px;
         height: 272px;
-        -webkit-box-shadow: inset 0px 0px 85px -5px rgba(61,36,18,1);
-        -moz-box-shadow: inset 0px 0px 85px -5px rgba(61,36,18,1);
-        box-shadow: inset 0px 0px 85px -5px rgba(61,36,18,1);
-
-        &:after {
-            content: '';
-            display: block;
-            position: relative;
-            top: -275px;
-            width: 100%;
-            height: 100%;
-            -webkit-box-shadow: inset 0px 0px 85px -5px rgba(61,36,18,1);
-            -moz-box-shadow: inset 0px 0px 85px -5px rgba(61,36,18,1);
-            box-shadow: inset 0px 0px 85px -5px rgba(61,36,18,1);
-        }
     }
 
     &-photo > img {
@@ -49,9 +34,19 @@
         width:280px;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        &> *{
+        justify-content: flex-end;
+        
+        * {
+            padding: 0 6px; 
+        }
+
+        p {
             font-family: @card-font;
+        }
+
+        i {
+            color: black;
+            font-size: 30px;
         }
     }
 }

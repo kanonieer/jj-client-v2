@@ -4,6 +4,7 @@ export class Image{
     longitude: String;
     latitude: String;
     id_journey: String;
+    isFavourite: Boolean;
     tags: Array<String>;
 
     constructor() {
@@ -12,6 +13,7 @@ export class Image{
         this.longitude = '';
         this.latitude = '';
         this.id_journey = '';
+        this.isFavourite = false;
         this.tags = [];
     }
 }

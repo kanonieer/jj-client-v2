@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Cloudinary } from 'cloudinary-core';
 import { CloudinaryModule } from '@cloudinary/angular-4.x';
+import { FacebookModule } from 'ngx-facebook';
 
 import { AppComponent } from './app.component';
 import { JourneysComponent } from './journeys/journeys.component';
@@ -47,6 +48,7 @@ const cloudinaryLib = {
   ],
   imports: [
     CloudinaryModule.forRoot(cloudinaryLib, cloudConfig),
+    FacebookModule.forRoot(),
     BrowserModule,
     routing,
     FormsModule,

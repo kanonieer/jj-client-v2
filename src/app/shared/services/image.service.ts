@@ -27,4 +27,21 @@ export class ImageService {
       .map((response: Response) => response.json())
       .catch(handleError);
   }
+
+  public getFavouriteImages(): Observable<any> {
+    const access_token = this.storageService.get('token');
+
+    return this.http.get(api + '/images?isFavourite=true&access_token=' + access_token, this.options)
+    .map((response: Response) => response.json())
+    .catch(handleError);
+  }
+
+  public toggleFavourite(imageId: String, isFavourite: Boolean): Observable<any> {
+    const access_token = this.storageService.get('token');
+    const data = { isFavourite };
+
+    return this.http.patch(api + '/images/' + imageId + '?access_token=' + access_token, data, this.options)
+    .map((response: Response) => response.json())
+    .catch(handleError);
+  }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
 
 import { AuthService } from './../shared/services/auth.service';
 import { StorageService } from './../shared/services/storage.service';
@@ -15,8 +16,17 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private facebookService: FacebookService
+  ) {
+    const initParams: InitParams = {
+      appId: '865241546949819',
+      xfbml: true,
+      version: 'v2.8'
+    };
+
+    facebookService.init(initParams);
+   }
 
   ngOnInit() {
   }
@@ -41,5 +51,11 @@ export class LoginComponent implements OnInit {
 
   private navigaToHomePage(): void {
     this.router.navigateByUrl('');
+  }
+
+  public facebookAuthorization(): void {
+    this.facebookService.login()
+    .then((response: LoginResponse) => console.log(response))
+    .catch((error: any) => console.error(error));
   }
 }
