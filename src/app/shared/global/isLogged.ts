@@ -15,7 +15,7 @@ export class IsLogged implements CanActivate {
         if (!!this.storageService.get('user_id')) {
             return !!this.storageService.get('user_id');
         } else {
-            this.router.navigateByUrl('login');
+            this.router.navigateByUrl('authorize');
         }
     }
 }

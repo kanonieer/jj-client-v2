@@ -23,6 +23,7 @@ import { PolaroidComponent } from './polaroid/polaroid.component';
 import { JourneyCardComponent } from './journey-card/journey-card.component';
 import { ImageService } from './shared/services/image.service';
 import { FooterComponent } from './footer/footer.component';
+import { AuthComponent } from './auth/auth.component';
 
 
 const cloudConfig = {
@@ -44,7 +45,8 @@ const cloudinaryLib = {
     LoginComponent,
     PolaroidComponent,
     JourneyCardComponent,
-    FooterComponent
+    FooterComponent,
+    AuthComponent
   ],
   imports: [
     CloudinaryModule.forRoot(cloudinaryLib, cloudConfig),
