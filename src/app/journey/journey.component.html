@@ -4,7 +4,7 @@
     <p>{{ journey.date_start | date:'shortDate' }} - {{ journey.date_end | date:'shortDate' }}</p>
     <p>{{ images.length }} images</p>
     <div class="journey-info-tools">
-      <i class="fa fa-pencil" aria-hidden="true" (click)="toggleEditModal(true)"></i>
+      <i class="fa fa-pencil" aria-hidden="true" (click)="toggleEditModal()"></i>
       <i class="fa fa-trash-o" aria-hidden="true" (click)="deleteJourney()"></i>   
     </div>
   </div>

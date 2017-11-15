@@ -43,4 +43,12 @@ export class JourneyComponent implements OnInit {
       this.descriptionVisible = true;
     }
   }
+
+  public toggleEditModal(): void {
+
+  }
+
+  public deleteJourney(): void {
+
+  }
 }
