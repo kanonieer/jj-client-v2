@@ -13,6 +13,8 @@ import { StorageService } from './../shared/services/storage.service';
 })
 export class LoginComponent implements OnInit {
 
+  public showForm: Boolean = true;;
+
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
@@ -26,6 +28,11 @@ export class LoginComponent implements OnInit {
     };
 
     facebookService.init(initParams);
+    if (!!this.storageService.get('user_id')) {
+      this.showForm = false;
+    } else {
+      this.showForm = true;
+    }
    }
 
   ngOnInit() {
@@ -50,12 +57,26 @@ export class LoginComponent implements OnInit {
   }
 
   private navigaToHomePage(): void {
-    this.router.navigateByUrl('');
+    this.router.navigateByUrl('journeys');
   }
 
   public facebookAuthorization(): void {
     this.facebookService.login()
-    .then((response: LoginResponse) => console.log(response))
+    .then((response: LoginResponse) => {
+      const fb_token = response.authResponse.accessToken;
+      const data = {
+        user_id: this.storageService.get('user_id') || null,
+        facebook_user_id: response.authResponse.userID,
+        token: fb_token
+       };
+
+      this.storageService.set('fb_token', fb_token);
+      this.authService.authFacebook(data).subscribe(res => {
+        this.storageService.set('token', res.data.access_token);
+        this.storageService.set('user_id', res.data.payload_user_id);
+        this.navigaToHomePage();
+      }, err => console.log(err));
+    })
     .catch((error: any) => console.error(error));
   }
 }

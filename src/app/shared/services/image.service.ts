@@ -36,11 +36,18 @@ export class ImageService {
     .catch(handleError);
   }
 
-  public toggleFavourite(imageId: String, isFavourite: Boolean): Observable<any> {
+  public updateImage(image: Image): Observable<any> {
     const access_token = this.storageService.get('token');
-    const data = { isFavourite };
 
-    return this.http.patch(api + '/images/' + imageId + '?access_token=' + access_token, data, this.options)
+    return this.http.patch(api + '/images/' + image._id + '?access_token=' + access_token, image, this.options)
+    .map((response: Response) => response.json())
+    .catch(handleError);
+  }
+
+  public deleteImage(imageId: String): Observable<any> {
+    const access_token = this.storageService.get('token');
+
+    return this.http.delete(api + '/images/' + imageId + '?access_token=' + access_token, this.options)
     .map((response: Response) => response.json())
     .catch(handleError);
   }

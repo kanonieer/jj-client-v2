@@ -3,6 +3,8 @@
       <a class="navbar-logo" routerLink="">
         JOURNEY JOURNAL
       </a>
+      <i class="fa fa-bars navbar-btn" aria-hidden="true" *ngIf="!this.navVisible" (click)="this.toggleNavbar()"></i>
+      <i class="fa fa-times navbar-btn" aria-hidden="true" *ngIf="this.navVisible" (click)="this.toggleNavbar()"></i> 
       <ul class="navbar-list">
         <li class="navbar-list__item">
           <a routerLink="gallery">gallery</a>
@@ -20,5 +22,23 @@
   </nav>
 </div>
 <div class="navbar-clearfix"></div>
+<div class="navbar-mobile"
+style="display: none; transition: all 0.7s"
+[style.display]="this.navVisible ? 'flex' : 'none'">
+  <ul class="navbar-list-mobile">
+    <li class="navbar-list__item">
+      <a routerLink="gallery" (click)="this.toggleNavbar()">gallery</a>
+    </li>
+    <li class="navbar-list__item">
+      <a routerLink="journeys" (click)="this.toggleNavbar()">journeys</a>
+    </li>
+    <li class="navbar-list__item">
+      <a routerLink="profile" (click)="this.toggleNavbar()">profile</a>
+    </li>
+    <li class="navbar-list__item">
+      <a routerLink="about" (click)="this.toggleNavbar()">about</a>
+    </li>
+  </ul>
+</div>
 <router-outlet></router-outlet>
 <app-footer></app-footer>

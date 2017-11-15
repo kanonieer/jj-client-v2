@@ -6,6 +6,8 @@ export class Image{
     id_journey: String;
     isFavourite: Boolean;
     tags: Array<String>;
+    title: String;
+    user_id: String;
 
     constructor() {
         this._id = '';
@@ -15,5 +17,7 @@ export class Image{
         this.id_journey = '';
         this.isFavourite = false;
         this.tags = [];
+        this.title = '';
+        this.user_id = '';
     }
 }

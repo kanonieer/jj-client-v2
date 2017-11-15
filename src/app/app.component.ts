@@ -8,6 +8,15 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   name = 'Paweł';
+  public navVisible: Boolean = false;
 
   constructor() {}
+
+  public toggleNavbar() {
+    if (this.navVisible) {
+      this.navVisible = false;
+    } else {
+      this.navVisible = true;
+    }
+  }
 }

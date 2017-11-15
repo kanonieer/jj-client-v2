@@ -15,14 +15,8 @@ export class AuthService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private options = new RequestOptions({headers: this.headers});
 
-  public authFacebook(): Observable<any>{
-    return this._http.get(api + '/auth/facebook', this.options)
-      .map((response: Response) => response.json())
-      .catch(handleError);
-  }
-
-  public authDropbox(): Observable<any>{
-    return this._http.get(api + '/auth/dropbox', this.options)
+  public authFacebook(payload: any): Observable<any>{
+    return this._http.post(api + '/facebookAuthorization', payload, this.options)
       .map((response: Response) => response.json())
       .catch(handleError);
   }

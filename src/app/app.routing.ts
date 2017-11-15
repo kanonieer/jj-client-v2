@@ -7,6 +7,7 @@ import { JourneysComponent } from './journeys/journeys.component';
 import { JourneyComponent } from './journey/journey.component';
 import { LoginComponent } from './login/login.component';
 import { AuthComponent } from './auth/auth.component';
+import { ProfileComponent } from './profile/profile.component';
 import { IsLogged } from './shared/global/isLogged';
 
 export const routing = RouterModule.forRoot([
@@ -15,5 +16,6 @@ export const routing = RouterModule.forRoot([
     { path: 'gallery', component: GalleryComponent, canActivate: [IsLogged] },
     { path: 'journeys', component: JourneysComponent, canActivate: [IsLogged] },
     { path: 'journeys/:id', component: JourneyComponent, canActivate: [IsLogged] },
-    { path: 'about', component: AboutComponent, canActivate: [IsLogged] }
+    { path: 'about', component: AboutComponent, canActivate: [IsLogged] },
+    { path: 'profile', component: ProfileComponent, canActivate: [IsLogged]}
 ]);

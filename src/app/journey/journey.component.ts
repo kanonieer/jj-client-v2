@@ -15,6 +15,7 @@ export class JourneyComponent implements OnInit {
 
   public journey: Journey = new Journey();
   public images: Image[] = [];
+  public descriptionVisible: Boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,4 +36,11 @@ export class JourneyComponent implements OnInit {
   ngOnInit() {
   }
 
+  public toggleDescription(): void {
+    if (this.descriptionVisible) {
+      this.descriptionVisible = false;
+    } else {
+      this.descriptionVisible = true;
+    }
+  }
 }

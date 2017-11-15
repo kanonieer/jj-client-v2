@@ -12,9 +12,28 @@
     </cl-image>
   </div>
   <div class="polaroid-info">
-    <p>Barcelona</p>
-    <i class="fa fa-star-o" aria-hidden="true" *ngIf="!image.isFavourite" (click)="toggleIsFavourite(true)"></i>
-    <i class="fa fa-star" aria-hidden="true" *ngIf="image.isFavourite" (click)="toggleIsFavourite(false)"></i>    
-    <p>11.08.17</p>
+    <p>{{ image.title }}</p>
+    <div class="polaroid-info-bottom-row">
+      <p>11.08.17</p>
+      <div class="polaroid-info-tools">        
+        <i class="fa fa-pencil" aria-hidden="true" (click)="this.toggleEditModal()"></i>
+        <i class="fa fa-star-o" aria-hidden="true" *ngIf="!image.isFavourite" (click)="toggleIsFavourite(true)"></i>
+        <i class="fa fa-star" aria-hidden="true" *ngIf="image.isFavourite" (click)="toggleIsFavourite(false)"></i>
+        <i class="fa fa-trash-o" aria-hidden="true" (click)="deleteImage()"></i>        
+      </div>
+    </div>
   </div>
 </div>
+<app-modal [show]="this.showEditModal" (hide)="this.showEditModal">
+  <div class="polaroid-modal-container">
+    <i class="fa fa-times polaroid-modal-exit" aria-hidden="true" (click)="this.toggleEditModal()"></i>
+    <h2>Edit Photo</h2>
+    <form class="polaroid-modal-form" #imageForm="ngForm" (ngSubmit)="editImage(imageForm)">
+        <input class="polaroid-modal-form-input" type="text" placeholder="TITLE" name="title" maxlength=30 ngModel>
+        <input class="polaroid-modal-form-input" type="text" placeholder="TAGS" name="tags" ngModel>      
+        <button type="submit" class="button polaroid-modal-form-button">
+          Submit changes
+        </button>
+      </form>
+  </div>
+</app-modal>

@@ -3,6 +3,31 @@
     <p>{{ journey.title }}</p>
     <p>{{ journey.date_start | date:'shortDate' }} - {{ journey.date_end | date:'shortDate' }}</p>
     <p>{{ images.length }} images</p>
+    <div class="journey-info-tools">
+      <i class="fa fa-pencil" aria-hidden="true" (click)="toggleEditModal(true)"></i>
+      <i class="fa fa-trash-o" aria-hidden="true" (click)="deleteJourney()"></i>   
+    </div>
+  </div>
+</section>
+<section class="wrapper-primary">
+  <div class="container journey-description">
+    <p>Description
+      <i class="fa fa-chevron-down" 
+      aria-hidden="true" *ngIf="!this.descriptionVisible" (click)="toggleDescription()"></i>
+      <i class="fa fa-chevron-up" 
+      aria-hidden="true" *ngIf="this.descriptionVisible" (click)="toggleDescription()"></i>
+    </p>
+    <p class="journey-description-content" *ngIf="this.descriptionVisible">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat, voluptate quia voluptates pariatur aspernatur suscipit itaque consectetur modi enim, vitae qui ratione cupiditate et deleniti excepturi nisi asperiores adipisci nam!
+    Aspernatur necessitatibus ipsa veritatis itaque nulla? Incidunt iusto obcaecati saepe earum repellendus quis similique facere aspernatur aliquam harum consectetur ad, facilis modi, mollitia exercitationem odio. Facere officia quibusdam itaque ratione.
+    Nam id distinctio sequi quis? Vero magnam, totam sunt error iste architecto delectus optio, quos nemo nihil rerum odio corporis obcaecati? Odio amet harum laboriosam eaque, reprehenderit quaerat esse dolor.
+    Minima error quaerat libero velit facere nisi quisquam veniam minus, quod in fuga suscipit repellat doloremque veritatis ducimus eligendi accusantium magni hic vel assumenda aspernatur sint delectus soluta dolore. Molestiae.
+    Ut voluptate aliquam sequi placeat voluptatem repudiandae accusamus non blanditiis quaerat veniam explicabo qui, commodi, praesentium possimus! Culpa iure dolore dolor voluptatum corporis vitae ad id libero, quisquam obcaecati aliquam.
+    Quidem nisi reprehenderit quis earum magni suscipit dolorem voluptatibus. Doloribus quae, possimus, obcaecati quibusdam harum ducimus quisquam recusandae nisi ipsum voluptatum nesciunt, alias ipsa veniam consequatur sunt odit amet. Veritatis.
+    Rerum, dolorum itaque alias, magni perferendis, eveniet debitis et numquam deleniti repudiandae porro sapiente laborum! Ut, reiciendis reprehenderit sapiente atque cumque quae eligendi nesciunt sit suscipit doloribus deleniti cupiditate vel!
+    Ad assumenda quibusdam deserunt neque impedit est sapiente quas consequuntur libero culpa cumque, similique ipsam nostrum, ducimus iusto distinctio officiis laborum optio. Culpa necessitatibus voluptatem voluptates voluptatibus tenetur, eos mollitia!
+    Nam optio, obcaecati ab perspiciatis tenetur consequuntur ducimus adipisci fuga provident perferendis, doloribus labore nostrum aliquid nemo minima consectetur! Dolor reiciendis consectetur ea quas. Velit dicta aliquid facere cupiditate culpa.
+   </p>
   </div>
 </section>
 <section class="wrapper-primary">
