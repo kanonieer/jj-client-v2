@@ -24,16 +24,13 @@
     </div>
   </div>
 </div>
-<app-modal [show]="this.showEditModal" (hide)="this.showEditModal">
-  <div class="polaroid-modal-container">
-    <i class="fa fa-times polaroid-modal-exit" aria-hidden="true" (click)="this.toggleEditModal()"></i>
-    <h2>Edit Photo</h2>
-    <form class="polaroid-modal-form" #imageForm="ngForm" (ngSubmit)="editImage(imageForm)">
-        <input class="polaroid-modal-form-input" type="text" placeholder="TITLE" name="title" maxlength=30 ngModel>
-        <input class="polaroid-modal-form-input" type="text" placeholder="TAGS" name="tags" ngModel>      
-        <button type="submit" class="button polaroid-modal-form-button">
-          Submit changes
-        </button>
-      </form>
-  </div>
+<app-modal [show]="this.showEditModal" (hide)="this.showEditModal = $event">
+  <h2 header>Edit Photo</h2>
+  <form class="modal-form" #imageForm="ngForm" (ngSubmit)="editImage(imageForm)" content>
+      <input class="modal-form-input" type="text" placeholder="TITLE" name="title" maxlength=30 ngModel>
+      <input class="modal-form-input" type="text" placeholder="TAGS" name="tags" ngModel>      
+      <button type="submit" class="button modal-form-button">
+        Submit changes
+      </button>
+  </form>
 </app-modal>

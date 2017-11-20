@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { Image } from './../shared/models/Image';
@@ -12,19 +12,21 @@ import { ImageService } from './../shared/services/image.service';
 export class PolaroidComponent implements OnInit {
 
   @Input() image: Image;
+  @Output() imageDeletion: EventEmitter<Image> = new EventEmitter<Image>();
 
-  public showEditModal: Boolean;
+  public showEditModal: Boolean = false;
 
-  constructor(private imageService: ImageService) {
-    this.showEditModal = false;
-  }
+  constructor(private imageService: ImageService) {}
 
   ngOnInit() {}
 
   public deleteImage(): void {
     this.imageService
       .deleteImage(this.image._id)
-      .subscribe(data => console.log(data));
+      .subscribe(data => {
+        console.log(data);
+        this.imageDeletion.emit(this.image);
+      });
   }
 
   public editImage(form: NgForm): void {
@@ -41,11 +43,7 @@ export class PolaroidComponent implements OnInit {
       .subscribe(data => console.log(data));
   }
 
-  public toggleEditModal() {
-    if (this.showEditModal) {
-      this.showEditModal = false;
-    } else {
-      this.showEditModal = true;
-    }
+  public toggleEditModal(): void {
+    this.showEditModal = ! this.showEditModal;
   }
 }

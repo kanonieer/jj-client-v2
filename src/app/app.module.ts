@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { Cloudinary } from 'cloudinary-core';
 import { CloudinaryModule } from '@cloudinary/angular-4.x';
 import { FacebookModule } from 'ngx-facebook';
+import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { JourneysComponent } from './journeys/journeys.component';
@@ -26,6 +27,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AuthComponent } from './auth/auth.component';
 import { ModalComponent } from './modal/modal.component';
 import { ProfileComponent } from './profile/profile.component';
+import { JourneyResolver } from './shared/services/journey.resolve';
 
 
 const cloudConfig = {
@@ -55,6 +57,9 @@ const cloudinaryLib = {
   imports: [
     CloudinaryModule.forRoot(cloudinaryLib, cloudConfig),
     FacebookModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAhZGyLlNuhBWwniCdhzckmou_2hRFkcpI'
+    }),
     BrowserModule,
     routing,
     FormsModule,
@@ -66,7 +71,8 @@ const cloudinaryLib = {
     UserService,
     JourneysService,
     ImageService,
-    IsLogged
+    IsLogged,
+    JourneyResolver
   ],
   bootstrap: [AppComponent]
 })

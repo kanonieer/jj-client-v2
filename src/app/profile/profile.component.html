@@ -1,5 +1,33 @@
 <div class="wrapper-primary">
   <div class="container profile-container">
-    Profile management
+    <div class="profile-stats-container">
+      Statystyki profilu
+    </div>
+    <div class="profile-manager-container">
+      <h2>Manage your account</h2>
+      <p (click)="this.toggleChangePassword()">Change your password</p>
+      <p (click)="this.toggleChangeEmail()">Change your email</p>
+      <p (click)="this.facebookAuthorization()">Add facebook account</p>
+    </div>
   </div>
 </div>
+<app-modal [show]="this.showChangeEmailModal" (hide)="this.showChangeEmailModal = $event">
+    <h2 header>Change email</h2>
+    <form class="modal-form" #emailForm="ngForm" (ngSubmit)="this.changeEmail(emailForm)" content>
+        <input class="modal-form-input" type="email" placeholder="CURRENT EMAIL" name="oldEmail" ngModel>
+        <input class="modal-form-input" type="email" placeholder="NEW EMAIL" name="newEmail" ngModel>      
+        <button type="submit" class="button modal-form-button">
+          Change email
+        </button>
+    </form>
+  </app-modal>
+  <app-modal [show]="this.showChangePasswordModal" (hide)="this.showChangePasswordModal = $event">
+    <h2 header>Change password</h2>
+    <form class="modal-form" #passwordForm="ngForm" (ngSubmit)="this.changePassword(passwordForm)" content>
+        <input class="modal-form-input" type="password" placeholder="CURRENT PASSWORD" name="oldPassword" ngModel>
+        <input class="modal-form-input" type="password" placeholder="NEW PASSWORD" name="newPassword" ngModel>      
+        <button type="submit" class="button modal-form-button">
+          Change password
+        </button>
+    </form>
+  </app-modal>

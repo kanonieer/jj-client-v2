@@ -1,7 +1,7 @@
 <div class="wrapper-primary navbar-fixed">
     <nav class="container navbar">
       <a class="navbar-logo" routerLink="">
-        JOURNEY JOURNAL
+        <img src="./assets/logo1.png"/>
       </a>
       <i class="fa fa-bars navbar-btn" aria-hidden="true" *ngIf="!this.navVisible" (click)="this.toggleNavbar()"></i>
       <i class="fa fa-times navbar-btn" aria-hidden="true" *ngIf="this.navVisible" (click)="this.toggleNavbar()"></i> 
@@ -18,6 +18,7 @@
         <li class="navbar-list__item">
           <a routerLink="about">about</a>
         </li>
+        <button class="button" (click)='this.logout()' *ngIf="this.isLogged">Sign out</button>
       </ul>
   </nav>
 </div>

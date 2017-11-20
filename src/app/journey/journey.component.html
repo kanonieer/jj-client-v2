@@ -32,6 +32,11 @@
 </section>
 <section class="wrapper-primary">
   <div class="container flex-container journey-images">
-    <app-polaroid *ngFor="let image of images" [image]='image'></app-polaroid>
+    <app-polaroid *ngFor="let image of images" [image]='image' (imageDeletion)="this.removeImage($event)"></app-polaroid>
   </div>
+</section>
+<section class="wrapper-map">
+    <agm-map [latitude]="lat" [longitude]="lng" [styles]="this.styles" [scrollwheel]=false>
+        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
 </section>

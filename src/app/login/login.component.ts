@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
 
   private navigaToHomePage(): void {
     this.router.navigateByUrl('journeys');
+    window.location.reload();
   }
 
   public facebookAuthorization(): void {

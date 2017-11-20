@@ -10,6 +10,10 @@
 a {
     text-decoration: none;
     color: @light-gray;
+
+    &:hover {
+        color: @white;
+    }
 }
 
 .wrapper-primary {
@@ -52,10 +56,43 @@ a {
     border-width: 0;
     padding: 20px 30px;
     font-weight: 600;
+    text-transform: uppercase;
 
     &:hover {
         -webkit-box-shadow: 0px 10px 50px -9px rgba(0,0,0,0.75);
         -moz-box-shadow: 0px 10px 50px -9px rgba(0,0,0,0.75);
         box-shadow: 0px 10px 50px -9px rgba(0,0,0,0.75);
+    }
+}
+
+.modal {
+    &-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: flex-end;
+        width: 100%;
+
+        &-input {
+            width: 100%;
+            background-color: @text-primary;
+            color: @white;
+            border-radius: 5px;
+            border-width: 0;
+            padding: 20px 30px;
+            margin: 10px 0;
+    
+            &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+                color: @gray;
+            }
+    
+            &::-moz-placeholder { /* Firefox 19+ */
+                color: @gray;
+            }
+        }
+
+        &-button {
+            margin: 10px 0;
+        }
     }
 }
