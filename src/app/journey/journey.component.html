@@ -36,7 +36,7 @@
   </div>
 </section>
 <section class="wrapper-map">
-    <agm-map [latitude]="lat" [longitude]="lng" [styles]="this.styles" [scrollwheel]=false>
+    <agm-map [latitude]="lat" [longitude]="lng" [styles]="this.styles" [zoom]=15 [scrollwheel]=false>
         <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
     </agm-map>
 </section>

@@ -45,20 +45,20 @@ export class ProfileComponent implements OnInit {
   }
 
   public facebookAuthorization(): void {
-    this.facebookService.login()
-    .then((response: LoginResponse) => {
-      const fb_token = response.authResponse.accessToken;
-      const data = {
-        user_id: this.storageService.get('user_id') || null,
-        facebook_user_id: response.authResponse.userID,
-        token: fb_token
-       };
+    // this.facebookService.login()
+    // .then((response: LoginResponse) => {
+    //   const fb_token = response.authResponse.accessToken;
+    //   const data = {
+    //     user_id: this.storageService.get('user_id') || null,
+    //     facebook_user_id: response.authResponse.userID,
+    //     token: fb_token
+    //    };
 
-      this.storageService.set('fb_token', fb_token);
-      this.authService.authFacebook(data).subscribe(res => {
-        console.log(res)
-      }, err => console.log(err));
-    })
-    .catch((error: any) => console.error(error));
+    //   this.storageService.set('fb_token', fb_token);
+    //   this.authService.authFacebook(data).subscribe(res => {
+    //     console.log(res)
+    //   }, err => console.log(err));
+    // })
+    // .catch((error: any) => console.error(error));
   }
 }

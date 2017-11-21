@@ -18,8 +18,9 @@ export class JourneyComponent implements OnInit {
   public journey: Journey = new Journey();
   public images: Image[] = [];
   public descriptionVisible: Boolean = false;
-  lat: Number = 51.678418;
-  lng: Number = 7.809007;
+
+  lat: Number = 52.467540;
+  lng: Number = 16.927325;
   styles: google.maps.MapTypeStyle[] = [];
 
   constructor(
