@@ -60,6 +60,7 @@ export class AuthService {
   public logout(): void {
     this.storageService.remove('user_id');
     this.storageService.remove('token');
+    this.storageService.remove('fb_token');
     this.router.navigateByUrl('');
     window.location.reload();
   }

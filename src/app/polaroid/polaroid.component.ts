@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { FacebookService, UIParams, UIResponse, InitParams } from 'ngx-facebook';
 
 import { Image } from './../shared/models/Image';
 import { ImageService } from './../shared/services/image.service';
+import { StorageService } from '../shared/services/storage.service';
 
 @Component({
   selector: 'app-polaroid',
@@ -15,8 +17,23 @@ export class PolaroidComponent implements OnInit {
   @Output() imageDeletion: EventEmitter<Image> = new EventEmitter<Image>();
 
   public showEditModal: Boolean = false;
+  public isFacebookLogged: Boolean = false;
 
-  constructor(private imageService: ImageService) {}
+  constructor(
+    private imageService: ImageService,
+    private storageService: StorageService,
+    private facebookService: FacebookService
+  ) {
+    const initParams: InitParams = {
+      appId: '865241546949819',
+      xfbml: true,
+      version: 'v2.8'
+    };
+
+    facebookService.init(initParams);
+
+    this.isFacebookLogged = this.checkIfFacebookLogged();
+  }
 
   ngOnInit() {}
 
@@ -45,5 +62,20 @@ export class PolaroidComponent implements OnInit {
 
   public toggleEditModal(): void {
     this.showEditModal = ! this.showEditModal;
+  }
+
+  public share() {
+    const params: UIParams = {
+      href: 'http://res.cloudinary.com/dzgtgeotp/image/upload/' + this.image._id + '.jpg',
+      method: 'share'
+    };
+
+    this.facebookService.ui(params)
+      .then((res: UIResponse) => console.log(res))
+      .catch((e: any) => console.error(e));
+  }
+
+  public checkIfFacebookLogged() {
+    return !!this.storageService.get('fb_token');
   }
 }

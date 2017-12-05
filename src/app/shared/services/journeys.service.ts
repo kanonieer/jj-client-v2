@@ -29,11 +29,36 @@ export class JourneysService {
       .catch(handleError);
   }
 
-  getJourneyById(journey_id: string): Observable<Journey> {
+  getJourneyById(journey_id: String): Observable<Journey> {
     const access_token = this.storageService.get('token');
 
     return this._http.get(api + '/journeys/' + journey_id + '?access_token=' + access_token, this.options)
       .map((response: Response) => response.json())
       .catch(handleError);
+  }
+
+  deleteJourney(journey_id: String): Observable<any> {
+    const access_token = this.storageService.get('token');
+
+    return this._http.delete(api + '/journeys/' + journey_id + '?access_token=' + access_token, this.options)
+    .map((response: Response) => response.json())
+    .catch(handleError);
+  }
+
+  editJourney(journey: any): Observable<any> {
+    const access_token = this.storageService.get('token');
+
+    return this._http.patch(api + '/journeys/' + journey._id + '?access_token=' + access_token,
+    JSON.stringify(journey), this.options)
+    .map((response: Response) => response.json())
+    .catch(handleError);
+  }
+
+  getJourneyImagesZipUrl(journey_id: String): Observable<any> {
+    const access_token = this.storageService.get('token');
+
+    return this._http.get(api + '/jounreysZipUrl/' + journey_id + '?access_token=' + access_token, this.options)
+    .map((response: Response) => response.json())
+    .catch(handleError);
   }
 }
