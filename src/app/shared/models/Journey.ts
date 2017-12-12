@@ -6,4 +6,5 @@ export class Journey {
     date_start: Date;
     date_end: Date;
     description: String;
+    background_image_id: String;
 }

@@ -1,5 +1,38 @@
 <section class="wrapper-primary">
   <div class="container flex-container gallery-container">
-    <app-polaroid *ngFor="let image of favouriteImages" [image]='image'></app-polaroid>
+    <div class="gallery-images-thumbnail" *ngFor="let image of favouriteImages" (click)='showPolaroid(image)'>
+        <cl-image 
+        [public-id]=image._id
+        class="thumbnail inline" 
+        format="jpg">
+        <cl-transformation height="150" width="150" crop="fit">
+        </cl-transformation>
+      </cl-image>
+    </div>
+    <!-- <app-polaroid *ngFor="let image of images" [image]='image' (imageDeletion)="this.removeImage($event)"></app-polaroid> -->
   </div>
 </section>
+<section class="wrapper-map">
+  <agm-map [latitude]="lat" [longitude]="lng" [styles]="this.styles" [zoom]=15 [scrollwheel]=false>
+      <agm-marker *ngFor="let image of favouriteImages"
+      (mouseOver)="mouseOver(infoWindow)"
+      [longitude]="convertStringToNumber(image.longitude)"
+      [latitude]="convertStringToNumber(image.latitude)">
+        <agm-info-window (click)='showPolaroid(image)' #infoWindow>
+          <cl-image 
+            (click)='showPolaroid(image)'
+            [public-id]=image._id
+            class="thumbnail inline" 
+            format="jpg">
+            <cl-transformation height="150" width="150" crop="fit">
+            </cl-transformation>
+          </cl-image>
+        </agm-info-window>
+      </agm-marker>
+  </agm-map>
+</section>
+<!-- <section class="wrapper-primary">
+  <div class="container flex-container gallery-container">
+    <app-polaroid *ngFor="let image of favouriteImages" [image]='image'></app-polaroid>
+  </div>
+</section> -->

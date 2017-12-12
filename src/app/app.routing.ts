@@ -10,13 +10,19 @@ import { AuthComponent } from './auth/auth.component';
 import { ProfileComponent } from './profile/profile.component';
 import { IsLogged } from './shared/global/isLogged';
 import { JourneyResolver } from './shared/services/journey.resolve';
+import { RegisterComponent } from './register/register.component';
 
 export const routing = RouterModule.forRoot([
-    { path: '', component: HomeComponent, pathMatch: 'full' },
+
+    { path: '', redirectTo: 'journeys', pathMatch: 'full' },
+    { path: 'landing', component: HomeComponent },
     { path: 'authorize', component: AuthComponent },
     { path: 'gallery', component: GalleryComponent, canActivate: [IsLogged] },
     { path: 'journeys', component: JourneysComponent, canActivate: [IsLogged] },
     { path: 'journeys/:id', component: JourneyComponent, resolve: { journey: JourneyResolver }, canActivate: [IsLogged] },
     { path: 'about', component: AboutComponent, canActivate: [IsLogged] },
-    { path: 'profile', component: ProfileComponent, canActivate: [IsLogged]}
+    { path: 'profile', component: ProfileComponent, canActivate: [IsLogged]},
+    { path: 'register', component: RegisterComponent },
+    { path: '**', redirectTo: 'journeys' }
+
 ]);

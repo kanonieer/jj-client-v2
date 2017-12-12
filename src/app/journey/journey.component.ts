@@ -23,26 +23,13 @@ export class JourneyComponent implements OnInit {
   public descriptionVisible: Boolean = false;
   public showEditModal: Boolean = false;
   public showDeleteModal: Boolean = false;
+  public showPolaroidModal: Boolean = false;
+  public selectedImage: Image;
+  public thumbnailOnMap = null;
 
   lat: Number = 52.467540;
   lng: Number = 16.927325;
-  lat2: Number = 52.467940;
-  lng2: Number = 16.927925;
 
-  points = [
-    {
-      longitude: 16.927325,
-      latitude: 52.467540
-    },
-    {
-      longitude: 16.937325,
-      latitude: 52.477540
-    },
-    {
-      longitude: 16.917325,
-      latitude: 52.487540
-    }
-  ]
   styles: google.maps.MapTypeStyle[] = [];
 
   constructor(
@@ -79,6 +66,35 @@ export class JourneyComponent implements OnInit {
     this.showDeleteModal = !this.showDeleteModal;
   }
 
+  public togglePolaroidModal(): void {
+    this.showPolaroidModal = !this.showPolaroidModal;
+  }
+
+  public showPolaroid(image: Image): void {
+    this.selectedImage = image;
+    this.togglePolaroidModal();
+  }
+
+  public selectNextPolaroid(): void {
+    const position = this.images.indexOf(this.selectedImage);
+
+    if (position === this.images.length - 1) {
+      this.selectedImage = this.images[0];
+    } else {
+      this.selectedImage = this.images[position + 1];
+    }
+  }
+
+  public selectPreviousPolaroid(): void {
+    const position = this.images.indexOf(this.selectedImage);
+
+    if (position === 0) {
+      this.selectedImage = this.images[this.images.length - 1];
+    } else {
+      this.selectedImage = this.images[position - 1];
+    }
+  }
+
   public removeImage(image): void {
     this.images.splice(this.images.indexOf(image), 1);
   }
@@ -104,6 +120,15 @@ export class JourneyComponent implements OnInit {
       this.downloadURI(data.url, this.journey.title);
     });
   }
+
+  public mouseOver(infoWindow, $event) {
+    if (this.thumbnailOnMap !== null) {
+      this.thumbnailOnMap.close();
+    }
+
+    this.thumbnailOnMap = infoWindow;
+    infoWindow.open();
+    }
 
   private convertStringToNumber(value: string): number {
     return +value;

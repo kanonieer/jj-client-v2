@@ -5,8 +5,8 @@
       class="thumbnail inline" 
       format="jpg">
       <cl-transformation 
-        height="272" 
-        width="272" 
+        [attr.height]="size" 
+        [attr.width]="size" 
         crop="fit">
       </cl-transformation>
     </cl-image>
@@ -18,6 +18,7 @@
       <div class="polaroid-info-tools">        
         <i class="fa fa-facebook" aria-hidden="true" *ngIf="this.isFacebookLogged" (click)="share()"></i>          
         <i class="fa fa-pencil" aria-hidden="true" (click)="this.toggleEditModal()"></i>
+        <i class="fa fa-picture-o" aria-hidden="true" (click)="this.setAsJourneyBackground()"></i>
         <i class="fa fa-star-o" aria-hidden="true" *ngIf="!image.isFavourite" (click)="toggleIsFavourite(true)"></i>
         <i class="fa fa-star" aria-hidden="true" *ngIf="image.isFavourite" (click)="toggleIsFavourite(false)"></i>
         <i class="fa fa-trash-o" aria-hidden="true" (click)="deleteImage()"></i>        
@@ -35,3 +36,4 @@
       </button>
   </form>
 </app-modal>
+

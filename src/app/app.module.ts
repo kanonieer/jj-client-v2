@@ -6,6 +6,8 @@ import { Cloudinary } from 'cloudinary-core';
 import { CloudinaryModule } from '@cloudinary/angular-4.x';
 import { FacebookModule } from 'ngx-facebook';
 import { AgmCoreModule } from '@agm/core';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { JourneysComponent } from './journeys/journeys.component';
@@ -28,6 +30,8 @@ import { AuthComponent } from './auth/auth.component';
 import { ModalComponent } from './modal/modal.component';
 import { ProfileComponent } from './profile/profile.component';
 import { JourneyResolver } from './shared/services/journey.resolve';
+import { ModalPolaroidComponent } from './modal-polaroid/modal-polaroid.component';
+import { RegisterComponent } from './register/register.component';
 
 
 const cloudConfig = {
@@ -52,7 +56,9 @@ const cloudinaryLib = {
     FooterComponent,
     AuthComponent,
     ModalComponent,
-    ProfileComponent
+    ProfileComponent,
+    ModalPolaroidComponent,
+    RegisterComponent
   ],
   imports: [
     CloudinaryModule.forRoot(cloudinaryLib, cloudConfig),
@@ -63,7 +69,9 @@ const cloudinaryLib = {
     BrowserModule,
     routing,
     FormsModule,
-    HttpModule
+    HttpModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthService,

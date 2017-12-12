@@ -1,6 +1,17 @@
 <div class="journey-card-container">
   <div class="journey-card-content" (click)="navigateToJourney()">
-      <p>{{ journey.title }}</p>
-      <p>{{ journey.date_start | date:'shortDate' }} - {{ journey.date_end | date:'shortDate' }}</p>
+    <div class="journey-card-content-background">
+      <cl-image 
+      [public-id]="journey.background_image_id"
+      class="thumbnail inline" 
+      format="jpg">
+        <cl-transformation height="400" width="400" crop="fill">
+        </cl-transformation>
+      </cl-image>
+    </div>
+    <div class="journey-card-content-text">
+        <p>{{ journey.title }}</p>
+        <p>{{ journey.date_start | date:'shortDate' }} - {{ journey.date_end | date:'shortDate' }}</p>
+    </div>
   </div>
 </div>

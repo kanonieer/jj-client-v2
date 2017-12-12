@@ -43,16 +43,18 @@ export class AuthService {
 
   public changeEmail(payload: any): Observable<any> {
     const access_token = this.storageService.get('token');
+    const user_id = this.storageService.get('user_id');
 
-    return this._http.patch(api + '/email?access_token=' + access_token, JSON.stringify(payload), this.options)
+    return this._http.patch(api + '/users/' + user_id + '/email?access_token=' + access_token, JSON.stringify(payload), this.options)
       .map((response: Response) => response.json())
       .catch(handleError);
   }
 
   public changePassword(payload: any): Observable<any> {
     const access_token = this.storageService.get('token');
+    const user_id = this.storageService.get('user_id');
 
-    return this._http.patch(api + '/password?access_token=' + access_token, JSON.stringify(payload), this.options)
+    return this._http.patch(api + '/users/' + user_id + '/password?access_token=' + access_token, JSON.stringify(payload), this.options)
       .map((response: Response) => response.json())
       .catch(handleError);
   }

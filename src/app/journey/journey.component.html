@@ -7,7 +7,6 @@
       <i class="fa fa-pencil" aria-hidden="true" (click)="toggleEditModal()"></i>
       <i class="fa fa-trash-o" aria-hidden="true" (click)="toggleDeleteModal()"></i>
       <i class="fa fa-download" aria-hidden="true" (click)="getDownloadUrl()"></i>
-      
     </div>
   </div>
 </section>
@@ -26,14 +25,39 @@
 </section>
 <section class="wrapper-primary">
   <div class="container flex-container journey-images">
-    <app-polaroid *ngFor="let image of images" [image]='image' (imageDeletion)="this.removeImage($event)"></app-polaroid>
+    <div class="journey-images-thumbnail" *ngFor="let image of images" (click)='showPolaroid(image)'>
+        <cl-image 
+        [public-id]=image._id
+        class="thumbnail inline" 
+        format="jpg">
+        <cl-transformation height="150" width="150" crop="fit">
+        </cl-transformation>
+      </cl-image>
+    </div>
+    <!-- <app-polaroid *ngFor="let image of images" [image]='image' (imageDeletion)="this.removeImage($event)"></app-polaroid> -->
   </div>
 </section>
 <section class="wrapper-map">
-    <agm-map [latitude]="lat" [longitude]="lng" [styles]="this.styles" [zoom]=15 [scrollwheel]=false>
+    <agm-map 
+    [latitude]="lat"
+    [longitude]="lng"
+    [styles]="this.styles"
+    [zoom]=15
+    [scrollwheel]=false>
         <agm-marker *ngFor="let image of images"
+        (mouseOver)="mouseOver(infoWindow)"
         [longitude]="convertStringToNumber(image.longitude)"
         [latitude]="convertStringToNumber(image.latitude)">
+          <agm-info-window (click)='showPolaroid(image)' #infoWindow>
+            <cl-image 
+              (click)='showPolaroid(image)'
+              [public-id]=image._id
+              class="thumbnail inline" 
+              format="jpg">
+              <cl-transformation height="150" width="150" crop="fit">
+              </cl-transformation>
+            </cl-image>
+          </agm-info-window>
         </agm-marker>
     </agm-map>
 </section>
@@ -68,3 +92,11 @@
     </div>
   </div>
 </app-modal>
+<app-modal-polaroid
+[image]="this.selectedImage"
+[show]="this.showPolaroidModal"
+(hide)="this.togglePolaroidModal()"
+(previous)="this.selectPreviousPolaroid()"
+(next)="this.selectNextPolaroid()"
+(imageDeletion)="this.removeImage($event)">
+</app-modal-polaroid>

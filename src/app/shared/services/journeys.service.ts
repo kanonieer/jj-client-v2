@@ -23,8 +23,9 @@ export class JourneysService {
 
   getJourneys(): Observable<Array<Journey>> {
     const access_token = this.storageService.get('token');
+    const user_id = this.storageService.get('user_id');
 
-    return this._http.get(api + '/journeys?access_token=' + access_token, this.options)
+    return this._http.get(api + '/users/' + user_id + '/journeys?access_token=' + access_token, this.options)
       .map((response: Response) => response.json())
       .catch(handleError);
   }
@@ -57,7 +58,7 @@ export class JourneysService {
   getJourneyImagesZipUrl(journey_id: String): Observable<any> {
     const access_token = this.storageService.get('token');
 
-    return this._http.get(api + '/jounreysZipUrl/' + journey_id + '?access_token=' + access_token, this.options)
+    return this._http.get(api + '/journeys/' + journey_id +  '/download?access_token=' + access_token, this.options)
     .map((response: Response) => response.json())
     .catch(handleError);
   }

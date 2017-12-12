@@ -5,6 +5,7 @@ import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
 
 import { AuthService } from './../shared/services/auth.service';
 import { StorageService } from './../shared/services/storage.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private storageService: StorageService,
     private router: Router,
-    private facebookService: FacebookService
+    private facebookService: FacebookService,
+    private toastr: ToastrService
   ) {
     const initParams: InitParams = {
       appId: '865241546949819',
@@ -45,7 +47,12 @@ export class LoginComponent implements OnInit {
     .signIn(payload)
     .subscribe((response) => {
       this.storeUser(response);
-      this.navigaToHomePage();
+      this.toastr.success('Signed in!', 'Success');
+      this.navigateToHomePage();
+    }, error => {
+      console.log(error);
+      this.toastr.error('Provided wrong user or password', 'Error');
+      loginForm.reset();
     });
   }
 
@@ -56,9 +63,13 @@ export class LoginComponent implements OnInit {
     this.storageService.set('user_id', _id);
   }
 
-  private navigaToHomePage(): void {
+  private navigateToHomePage(): void {
     this.router.navigateByUrl('journeys');
     window.location.reload();
+  }
+
+  public navigateToRegister(): void {
+    this.router.navigateByUrl('register');
   }
 
   public facebookAuthorization(): void {
@@ -75,7 +86,7 @@ export class LoginComponent implements OnInit {
       this.authService.authFacebook(data).subscribe(res => {
         this.storageService.set('token', res.data.access_token);
         this.storageService.set('user_id', res.data.payload_user_id);
-        this.navigaToHomePage();
+        this.navigateToHomePage();
       }, err => console.log(err));
     })
     .catch((error: any) => console.error(error));

@@ -5,6 +5,8 @@ import { FacebookService, UIParams, UIResponse, InitParams } from 'ngx-facebook'
 import { Image } from './../shared/models/Image';
 import { ImageService } from './../shared/services/image.service';
 import { StorageService } from '../shared/services/storage.service';
+import { JourneysService } from '../shared/services/journeys.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-polaroid',
@@ -18,17 +20,22 @@ export class PolaroidComponent implements OnInit {
 
   public showEditModal: Boolean = false;
   public isFacebookLogged: Boolean = false;
+  public size: Number = 500;
 
   constructor(
     private imageService: ImageService,
     private storageService: StorageService,
-    private facebookService: FacebookService
+    private facebookService: FacebookService,
+    private journeysService: JourneysService,
+    private toastr: ToastrService
   ) {
     const initParams: InitParams = {
       appId: '865241546949819',
       xfbml: true,
       version: 'v2.8'
     };
+
+    this.size = Math.floor(window.innerHeight * 0.75);
 
     facebookService.init(initParams);
 
@@ -40,9 +47,11 @@ export class PolaroidComponent implements OnInit {
   public deleteImage(): void {
     this.imageService
       .deleteImage(this.image._id)
-      .subscribe(data => {
-        console.log(data);
+      .subscribe(success => {
+        this.toastr.success('Image successfully deleted', 'Success');
         this.imageDeletion.emit(this.image);
+      }, error => {
+        this.toastr.error('Failed while deleting image', 'Error');
       });
   }
 
@@ -77,5 +86,21 @@ export class PolaroidComponent implements OnInit {
 
   public checkIfFacebookLogged() {
     return !!this.storageService.get('fb_token');
+  }
+
+  public setAsJourneyBackground() {
+    const payload = {
+      background_image_id: this.image._id,
+      _id: this.image.id_journey
+    };
+
+    this.journeysService.editJourney(payload)
+    .subscribe(success => {
+      console.log(success);
+      this.toastr.success('Image set as Journey background!', 'Success');
+    }, error => {
+      console.log(error);
+      this.toastr.error('There was an error while setting background.', 'Error');
+    });
   }
 }

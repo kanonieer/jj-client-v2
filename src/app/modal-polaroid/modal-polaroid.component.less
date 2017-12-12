@@ -1,0 +1,61 @@
+@import './../../variables.less';
+
+.modal-polaroid-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    margin: 0 auto;
+    background: rgba(51, 63, 75, .7);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    padding: 0 100px;
+
+    &-content {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        i {
+            font-size: 50px;
+            color: @light-gray;
+
+            &:hover {
+                -webkit-box-shadow: 0px 0px 130px -17px rgba(0,0,0,1);
+                -moz-box-shadow: 0px 0px 130px -17px rgba(0,0,0,1);
+                box-shadow: 0px 0px 130px -17px rgba(0,0,0,1);
+                transition: all .5s ease;
+            }
+
+            &:active {
+                color: @secondary;
+            }
+        }
+    }
+
+    &-exit {
+        font-size: 50px;
+        color: @light-gray;
+        align-self: flex-end;
+
+        &:hover {
+            -webkit-box-shadow: 0px 0px 130px -17px rgba(0,0,0,1);
+            -moz-box-shadow: 0px 0px 130px -17px rgba(0,0,0,1);
+            box-shadow: 0px 0px 130px -17px rgba(0,0,0,1);
+            transition: all .5s ease;
+        }
+
+        &:active {
+            color: @secondary;
+        }
+    }
+}
