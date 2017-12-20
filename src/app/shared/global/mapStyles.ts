@@ -6,7 +6,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'geometry',
     stylers: [
       {
-        color: '#ff0000'
+        color: '#ffffff'
       }
     ]
   },
@@ -51,7 +51,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'all',
     stylers: [
       {
-        color: '#333f4b'
+        color: '#0f131d'
       }
     ]
   },
@@ -60,7 +60,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#ff0000'
+        color: '#ffffff'
       }
     ]
   },
@@ -69,7 +69,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'all',
     stylers: [
       {
-        color: '#333f4b'
+        color: '#0f131d'
       }
     ]
   },
@@ -105,7 +105,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'geometry.fill',
     stylers: [
       {
-        color: '#ff0000'
+        color: '#ffffff'
       },
       {
         visibility: 'off'
@@ -117,7 +117,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'geometry.fill',
     stylers: [
       {
-        color: '#ff0000'
+        color: '#ffffff'
       },
       {
         visibility: 'off'
@@ -147,7 +147,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'geometry.fill',
     stylers: [
       {
-        color: '#ff0000'
+        color: '#ffffff'
       },
       {
         visibility: 'off'
@@ -159,7 +159,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'geometry.fill',
     stylers: [
       {
-        color: '#ff0000'
+        color: '#ffffff'
       },
       {
         visibility: 'off'
@@ -219,7 +219,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'labels.text.fill',
     stylers: [
       {
-        color: '#ff0000'
+        color: '#ffffff'
       }
     ]
   },
@@ -228,7 +228,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'labels.text.stroke',
     stylers: [
       {
-        color: '#ff0000'
+        color: '#ffffff'
       }
     ]
   },
@@ -237,7 +237,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'labels.icon',
     stylers: [
       {
-        color: '#ff0000'
+        color: '#ffffff'
       },
       {
         visibility: 'off'
@@ -267,7 +267,7 @@ export const mapStyles: google.maps.MapTypeStyle[] = [
     elementType: 'labels.icon',
     stylers: [
       {
-        color: '#ff0000'
+        color: '#ffffff'
       }
     ]
   },

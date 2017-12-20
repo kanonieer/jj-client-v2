@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
 
 import { AuthService } from './../shared/services/auth.service';
 import { StorageService } from './../shared/services/storage.service';
+import { UserService } from '../shared/services/user.service';
+import { ToastrService } from 'ngx-toastr';
+import { FbService } from '../shared/services/fb.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,12 +16,22 @@ export class ProfileComponent implements OnInit {
 
   public showChangeEmailModal: Boolean = false;
   public showChangePasswordModal: Boolean = false;
+  public showAddLocalAuthenticationModal: Boolean = false;
+  public user: any;
+  public stats: any;
+  public hasLocal: Boolean;
+  public hasFacebook: Boolean;
 
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
-    private facebookService: FacebookService
-  ) { }
+    private userService: UserService,
+    private toastr: ToastrService,
+    private fbService: FbService
+  ) {
+    this.updateProfile();
+    this.userService.getStats().subscribe(res => this.stats = res.stats);
+  }
 
   ngOnInit() {
   }
@@ -32,33 +44,88 @@ export class ProfileComponent implements OnInit {
     this.showChangePasswordModal = !this.showChangePasswordModal;
   }
 
+  public toggleAddLocalAuthentication(): void {
+    this.showAddLocalAuthenticationModal = !this.showAddLocalAuthenticationModal;
+  }
+
+  private updateProfile(): void {
+    this.userService.getProfile()
+    .subscribe(res => {
+      this.user = res.user;
+      console.log(this.user);
+      this.hasFacebook = !!this.user.facebook;
+      this.hasLocal = !!this.user.local;
+    });
+  }
+
   public changeEmail(form: NgForm): void {
     this.authService.changeEmail({form: form.value})
-       .subscribe(data => console.log(data));
+       .subscribe(res => {
+         console.log(res);
+         this.toastr.success(res.message, 'Success');
+         this.updateProfile();
+        }, error => this.toastr.error(error, 'Error'));
     this.toggleChangeEmail();
   }
 
   public changePassword(form: NgForm): void {
     this.authService.changePassword({form: form.value})
-      .subscribe(data => console.log(data));
+      .subscribe(res => {
+        console.log(res);
+        this.toastr.success(res.message, 'Success');
+        this.updateProfile();
+      }, error => this.toastr.error(error, 'Error'));
     this.toggleChangePassword();
   }
 
-  public facebookAuthorization(): void {
-    // this.facebookService.login()
-    // .then((response: LoginResponse) => {
-    //   const fb_token = response.authResponse.accessToken;
-    //   const data = {
-    //     user_id: this.storageService.get('user_id') || null,
-    //     facebook_user_id: response.authResponse.userID,
-    //     token: fb_token
-    //    };
+  public addFacebook(): void {
+    this.fbService.authenticate().then(fb => {
+      console.log('fb: ' + fb);
+      const data = {
+        user_id: this.storageService.get('user_id'),
+        facebook_user_id: fb.facebook_user_id,
+        facebook_token: fb.facebook_token
+       };
 
-    //   this.storageService.set('fb_token', fb_token);
-    //   this.authService.authFacebook(data).subscribe(res => {
-    //     console.log(res)
-    //   }, err => console.log(err));
-    // })
-    // .catch((error: any) => console.error(error));
+      this.authService.addFacebookAuth(data).subscribe(res => {
+        this.storageService.set('fb_token', fb.facebook_token);
+        console.log(res);
+        this.toastr.success(res.message, 'Success');
+        this.updateProfile();
+      }, error => this.toastr.error(error, 'Error'));
+    });
+  }
+
+  public removeFacebook(): void {
+    this.authService.removeFacebookAuth().subscribe(res => {
+      console.log(res);
+      this.toastr.success(res.message, 'Success');
+      this.updateProfile();
+    }, error => this.toastr.error(error, 'Error'));
+  }
+
+  // public addLocal(): void {
+  //   this.authService.addLocalAuth({ email: 'test', password: 'test' }).subscribe(res => {
+  //     console.log(res);
+  //     this.toastr.success(res.message, 'Success');
+  //     this.updateProfile();
+  //   }, error => this.toastr.error(error, 'Error'));
+  // }
+
+  public addLocalAuthentication(form: NgForm): void {
+    this.authService.addLocalAuth(form.value).subscribe(res => {
+      console.log(res);
+      this.toastr.success(res.message, 'Success');
+      this.updateProfile();
+    }, error => this.toastr.error(error, 'Error'));
+    this.toggleAddLocalAuthentication();
+  }
+
+  public removeLocal(): void {
+    this.authService.removeLocalAuth().subscribe(res => {
+      console.log(res);
+      this.toastr.success(res.message, 'Success');
+      this.updateProfile();
+    }, error => this.toastr.error(error, 'Error'));
   }
 }

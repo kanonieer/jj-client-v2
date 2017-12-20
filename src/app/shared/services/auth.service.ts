@@ -29,6 +29,47 @@ export class AuthService {
       .catch(handleError);
   }
 
+  public addFacebookAuth(payload: any): Observable<any> {
+    const access_token = this.storageService.get('token');
+
+    return this._http.patch(api + '/users/' + payload.user_id
+    + '/addFacebook?access_token=' + access_token,
+    JSON.stringify(payload), this.options)
+      .map((response: Response) => response.json())
+      .catch(handleError);
+  }
+
+  public removeFacebookAuth(): Observable<any> {
+    const access_token = this.storageService.get('token');
+    const user_id = this.storageService.get('user_id');
+
+    return this._http.patch(api + '/users/' + user_id
+    + '/removeFacebook?access_token=' + access_token, this.options)
+      .map((response: Response) => response.json())
+      .catch(handleError);
+  }
+
+  public addLocalAuth(payload: any): Observable<any> {
+    const access_token = this.storageService.get('token');
+    const user_id = this.storageService.get('user_id');
+
+    return this._http.patch(api + '/users/' + user_id
+    + '/addLocal?access_token=' + access_token,
+    JSON.stringify(payload), this.options)
+      .map((response: Response) => response.json())
+      .catch(handleError);
+  }
+
+  public removeLocalAuth(): Observable<any> {
+    const access_token = this.storageService.get('token');
+    const user_id = this.storageService.get('user_id');
+
+    return this._http.patch(api + '/users/' + user_id
+    + '/removeLocal?access_token=' + access_token, this.options)
+      .map((response: Response) => response.json())
+      .catch(handleError);
+  }
+
   public signUp(payload: any): Observable<any> {
     return this._http.post(api + '/signup', JSON.stringify(payload), this.options)
       .map((response: Response) => response.json())

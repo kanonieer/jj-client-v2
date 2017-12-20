@@ -1,33 +1,47 @@
 <div class="wrapper-primary">
   <div class="container profile-container">
     <div class="profile-stats-container">
-        <p class="under-construction"> To be added soon! </p>
+        <p class="profile-stats-item">Journeys: {{ this.stats?.journeys }}</p>
+        <p class="profile-stats-item">Images: {{ this.stats?.images }}</p>
     </div>
     <div class="profile-manager-container">
       <h2>Manage your account</h2>
-      <p (click)="this.toggleChangePassword()">Change your password</p>
-      <p (click)="this.toggleChangeEmail()">Change your email</p>
-      <p (click)="this.facebookAuthorization()">Add facebook account</p>
+      <p (click)="this.toggleChangePassword()" *ngIf="this.hasLocal">Change your password</p>
+      <p (click)="this.toggleChangeEmail()" *ngIf="this.hasLocal">Change your email</p>
+      <p (click)="this.addFacebook()" *ngIf="!this.hasFacebook">Connect with Facebook</p>
+      <p (click)="this.removeFacebook()" *ngIf="this.hasFacebook && this.hasLocal">Remove asociated Facebook account</p>
+      <p (click)="this.toggleAddLocalAuthentication()" *ngIf="!this.hasLocal">Add email & password authorization</p>
+      <p (click)="this.removeLocal()" *ngIf="this.hasLocal && this.hasFacebook">Remove email & password authorization</p>
     </div>
   </div>
 </div>
 <app-modal [show]="this.showChangeEmailModal" (hide)="this.showChangeEmailModal = $event">
-    <h2 header>Change email</h2>
-    <form class="modal-form" #emailForm="ngForm" (ngSubmit)="this.changeEmail(emailForm)" content>
-        <input class="modal-form-input" type="email" placeholder="CURRENT EMAIL" name="oldEmail" ngModel>
-        <input class="modal-form-input" type="email" placeholder="NEW EMAIL" name="newEmail" ngModel>      
-        <button type="submit" class="button modal-form-button">
-          Change email
-        </button>
-    </form>
-  </app-modal>
-  <app-modal [show]="this.showChangePasswordModal" (hide)="this.showChangePasswordModal = $event">
-    <h2 header>Change password</h2>
-    <form class="modal-form" #passwordForm="ngForm" (ngSubmit)="this.changePassword(passwordForm)" content>
-        <input class="modal-form-input" type="password" placeholder="CURRENT PASSWORD" name="oldPassword" ngModel>
-        <input class="modal-form-input" type="password" placeholder="NEW PASSWORD" name="newPassword" ngModel>      
-        <button type="submit" class="button modal-form-button">
-          Change password
-        </button>
-    </form>
-  </app-modal>
+  <h2 header>Change email</h2>
+  <form class="modal-form" #emailForm="ngForm" (ngSubmit)="this.changeEmail(emailForm)" content>
+      <input class="modal-form-input" type="email" placeholder="CURRENT EMAIL" name="oldEmail" ngModel>
+      <input class="modal-form-input" type="email" placeholder="NEW EMAIL" name="newEmail" ngModel>      
+      <button type="submit" class="button modal-form-button">
+        Change email
+      </button>
+  </form>
+</app-modal>
+<app-modal [show]="this.showChangePasswordModal" (hide)="this.showChangePasswordModal = $event">
+  <h2 header>Change password</h2>
+  <form class="modal-form" #passwordForm="ngForm" (ngSubmit)="this.changePassword(passwordForm)" content>
+      <input class="modal-form-input" type="password" placeholder="CURRENT PASSWORD" name="oldPassword" ngModel>
+      <input class="modal-form-input" type="password" placeholder="NEW PASSWORD" name="newPassword" ngModel>      
+      <button type="submit" class="button modal-form-button">
+        Change password
+      </button>
+  </form>
+</app-modal>
+<app-modal [show]="this.showAddLocalAuthenticationModal" (hide)="this.showAddLocalAuthenticationModal  = $event">
+  <h2 header>Add email & password authentication</h2>
+  <form class="modal-form" #loginForm="ngForm" (ngSubmit)="this.addLocalAuthentication(loginForm)" content>
+      <input class="modal-form-input" type="email" placeholder="EMAIL" name="email" ngModel>
+      <input class="modal-form-input" type="password" placeholder="PASSWORD" name="password" ngModel>      
+      <button type="submit" class="button modal-form-button">
+        Submit
+      </button>
+  </form>
+</app-modal>

@@ -1,7 +1,7 @@
 <div class="polaroid-container">
   <div class="polaroid-image">
     <cl-image 
-      [public-id]=image._id
+      public-id={{image._id}}
       class="thumbnail inline" 
       format="jpg">
       <cl-transformation 
@@ -14,14 +14,14 @@
   <div class="polaroid-info">
     <p>{{ image.title }}</p>
     <div class="polaroid-info-bottom-row">
-      <p>11.08.17</p>
+      <p>{{ image.date | date:'shortDate' }}</p>
       <div class="polaroid-info-tools">        
-        <i class="fa fa-facebook" aria-hidden="true" *ngIf="this.isFacebookLogged" (click)="share()"></i>          
-        <i class="fa fa-pencil" aria-hidden="true" (click)="this.toggleEditModal()"></i>
-        <i class="fa fa-picture-o" aria-hidden="true" (click)="this.setAsJourneyBackground()"></i>
-        <i class="fa fa-star-o" aria-hidden="true" *ngIf="!image.isFavourite" (click)="toggleIsFavourite(true)"></i>
-        <i class="fa fa-star" aria-hidden="true" *ngIf="image.isFavourite" (click)="toggleIsFavourite(false)"></i>
-        <i class="fa fa-trash-o" aria-hidden="true" (click)="deleteImage()"></i>        
+        <i class="fa fa-facebook" title="Share via Facebook" aria-hidden="true" (click)="share()"></i>          
+        <i class="fa fa-pencil" title="Edit image"  aria-hidden="true" (click)="this.toggleEditModal()"></i>
+        <i class="fa fa-picture-o" title="Set as Journey background" aria-hidden="true" (click)="this.setAsJourneyBackground()"></i>
+        <i class="fa fa-star-o" aria-hidden="true" title="Set as Favourite" *ngIf="!image.isFavourite" (click)="toggleIsFavourite(true)"></i>
+        <i class="fa fa-star"  aria-hidden="true" title="Favourite" *ngIf="image.isFavourite" (click)="toggleIsFavourite(false)"></i>
+        <i class="fa fa-trash-o" title="Delete image" aria-hidden="true" (click)="deleteImage()"></i>       
       </div>
     </div>
   </div>

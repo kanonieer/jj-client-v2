@@ -78,6 +78,7 @@ export class PolaroidComponent implements OnInit {
       href: 'http://res.cloudinary.com/dzgtgeotp/image/upload/' + this.image._id + '.jpg',
       method: 'share'
     };
+  
 
     this.facebookService.ui(params)
       .then((res: UIResponse) => console.log(res))

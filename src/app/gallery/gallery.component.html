@@ -1,6 +1,6 @@
 <section class="wrapper-primary">
   <div class="container flex-container gallery-container">
-    <div class="gallery-images-thumbnail" *ngFor="let image of favouriteImages" (click)='showPolaroid(image)'>
+    <div class="gallery-images-thumbnail" *ngFor="let image of images" (click)='showPolaroid(image)'>
         <cl-image 
         [public-id]=image._id
         class="thumbnail inline" 
@@ -14,7 +14,7 @@
 </section>
 <section class="wrapper-map">
   <agm-map [latitude]="lat" [longitude]="lng" [styles]="this.styles" [zoom]=15 [scrollwheel]=false>
-      <agm-marker *ngFor="let image of favouriteImages"
+      <agm-marker *ngFor="let image of images"
       (mouseOver)="mouseOver(infoWindow)"
       [longitude]="convertStringToNumber(image.longitude)"
       [latitude]="convertStringToNumber(image.latitude)">
@@ -36,3 +36,10 @@
     <app-polaroid *ngFor="let image of favouriteImages" [image]='image'></app-polaroid>
   </div>
 </section> -->
+<app-modal-polaroid
+[selectedImage]="this.selectedImage"
+[images]="this.images"
+[show]="this.showPolaroidModal"
+(hide)="this.togglePolaroidModal()"
+(imageDeletion)="this.removeImage($event)">
+</app-modal-polaroid>

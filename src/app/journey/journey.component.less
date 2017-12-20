@@ -36,6 +36,55 @@
         }
     }
 
+    &-postcard {
+        background: @light-gray;
+        color: @primary;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        -webkit-box-shadow: inset 0px 0px 52px -5px rgba(0,0,0,0.75);
+        -moz-box-shadow: inset 0px 0px 52px -5px rgba(0,0,0,0.75);
+        box-shadow: inset 0px 0px 52px -5px rgba(0,0,0,0.75);
+        height: 404px;
+        border: 2px solid white;
+
+        &-content {
+            height: 100%;
+            flex: 1;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+
+            >p {
+                font-family: @card-font;
+                font-size: 20px;
+                width: 100%;
+                border-bottom: 1px solid @line-shadow;
+            }
+
+            &-description {
+                flex: 1;
+                overflow-y: scroll;
+            }
+
+            &-tools {
+                align-self: flex-end;
+                font-size: 20px;
+
+                >i {
+                    margin: 10px;
+                }
+            }
+        }
+
+        &-image {
+
+        }
+    }
+
     &-description {
         color: @text-primary;
         text-transform: uppercase;

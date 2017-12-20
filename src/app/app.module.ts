@@ -32,6 +32,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { JourneyResolver } from './shared/services/journey.resolve';
 import { ModalPolaroidComponent } from './modal-polaroid/modal-polaroid.component';
 import { RegisterComponent } from './register/register.component';
+import { ImagesResolver } from './shared/services/images.resolve';
+import { FbService } from './shared/services/fb.service';
 
 
 const cloudConfig = {
@@ -71,7 +73,10 @@ const cloudinaryLib = {
     FormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-bottom-center'
+    })
   ],
   providers: [
     AuthService,
@@ -79,8 +84,10 @@ const cloudinaryLib = {
     UserService,
     JourneysService,
     ImageService,
+    FbService,
     IsLogged,
-    JourneyResolver
+    JourneyResolver,
+    ImagesResolver
   ],
   bootstrap: [AppComponent]
 })

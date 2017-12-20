@@ -1,6 +1,6 @@
 <div class="journey-card-container">
   <div class="journey-card-content" (click)="navigateToJourney()">
-    <div class="journey-card-content-background">
+    <div class="journey-card-content-background" *ngIf="journey.background_image_id !== ''">
       <cl-image 
       [public-id]="journey.background_image_id"
       class="thumbnail inline" 

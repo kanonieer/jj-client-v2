@@ -3,8 +3,8 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
 import { StorageService } from '../shared/services/storage.service';
+import { FbService } from '../shared/services/fb.service';
 
 @Component({
   selector: 'app-register',
@@ -17,17 +17,9 @@ export class RegisterComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private toastr: ToastrService,
-    private facebookService: FacebookService,
-    private storageService: StorageService
-  ) {
-    const initParams: InitParams = {
-      appId: '865241546949819',
-      xfbml: true,
-      version: 'v2.8'
-    };
-
-    facebookService.init(initParams);
-  }
+    private storageService: StorageService,
+    private fbService: FbService
+  ) {}
 
   ngOnInit() {
   }
@@ -46,23 +38,20 @@ export class RegisterComponent implements OnInit {
   }
 
   public facebookAuthorization(): void {
-    this.facebookService.login()
-    .then((response: LoginResponse) => {
-      const fb_token = response.authResponse.accessToken;
+    this.fbService.authenticate().then(fb => {
       const data = {
         user_id: this.storageService.get('user_id') || null,
-        facebook_user_id: response.authResponse.userID,
-        token: fb_token
+        facebook_user_id: fb.facebook_user_id,
+        facebook_token: fb.facebook_token
        };
 
-      this.storageService.set('fb_token', fb_token);
-      this.authService.authFacebook(data).subscribe(res => {
-        this.storageService.set('token', res.data.access_token);
-        this.storageService.set('user_id', res.data.payload_user_id);
-        this.navigateToHomePage();
-      }, err => console.log(err));
-    })
-    .catch((error: any) => console.error(error));
+       this.authService.authFacebook(data).subscribe(res => {
+         this.storageService.set('fb_token', fb.facebook_token);
+         this.storageService.set('token', res.data.access_token);
+         this.storageService.set('user_id', res.data.user_id);
+         this.navigateToHomePage();
+       }, err => console.log(err));
+    });
   }
 
   private navigateToHomePage(): void {

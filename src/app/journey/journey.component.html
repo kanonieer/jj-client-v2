@@ -1,12 +1,12 @@
-<section class="wrapper-primary">
+<!-- <section class="wrapper-primary">
   <div class="container journey-info">
     <p>{{ journey.title }}</p>
     <p>{{ journey.date_start | date:'shortDate' }} - {{ journey.date_end | date:'shortDate' }}</p>
     <p>{{ images.length }} images</p>
     <div class="journey-info-tools">
-      <i class="fa fa-pencil" aria-hidden="true" (click)="toggleEditModal()"></i>
-      <i class="fa fa-trash-o" aria-hidden="true" (click)="toggleDeleteModal()"></i>
-      <i class="fa fa-download" aria-hidden="true" (click)="getDownloadUrl()"></i>
+      <i class="fa fa-pencil" title="Edit Journey" aria-hidden="true" (click)="toggleEditModal()"></i>
+      <i class="fa fa-trash-o" title="Delete Journey" aria-hidden="true" (click)="toggleDeleteModal()"></i>
+      <i class="fa fa-download" title="Download Images" aria-hidden="true" (click)="getDownloadUrl()"></i>
     </div>
   </div>
 </section>
@@ -22,6 +22,31 @@
       "{{ journey.description }}"
     </p>
   </div>
+</section> -->
+<section class="wrapper-primary">
+  <div class="container journey-postcard">
+    <div class="journey-postcard-content">
+      <p>{{ journey.title }}</p>
+      <p>{{ images.length }} images</p>
+      <p>{{ journey.date_start | date:'shortDate' }} - {{ journey.date_end | date:'shortDate' }}</p>
+      <p class="journey-postcard-content-description">{{ this.description }}</p>
+      <div class="journey-postcard-content-tools">
+        <i class="fa fa-pencil" title="Edit Journey" aria-hidden="true" (click)="toggleEditModal()"></i>
+        <i class="fa fa-trash-o" title="Delete Journey" aria-hidden="true" (click)="toggleDeleteModal()"></i>
+        <i class="fa fa-download" title="Download Images" aria-hidden="true" (click)="getDownloadUrl()"></i>
+      </div>
+    </div>
+    <div class="journey-postcard-image">
+      <cl-image
+      *ngIf="journey.background_image_id !== ''"
+      [public-id]="journey.background_image_id"
+      class="thumbnail inline" 
+      format="jpg">
+        <cl-transformation height="400" width="400" crop="fill">
+        </cl-transformation>
+      </cl-image>
+    </div>
+  </div>
 </section>
 <section class="wrapper-primary">
   <div class="container flex-container journey-images">
@@ -34,15 +59,15 @@
         </cl-transformation>
       </cl-image>
     </div>
-    <!-- <app-polaroid *ngFor="let image of images" [image]='image' (imageDeletion)="this.removeImage($event)"></app-polaroid> -->
   </div>
 </section>
-<section class="wrapper-map">
+<section class="wrapper-primary">
+  <div class="container wrapper-map">
     <agm-map 
-    [latitude]="lat"
-    [longitude]="lng"
+    [latitude]="latitude"
+    [longitude]="longitude"
+    [zoom]="this.zoom"
     [styles]="this.styles"
-    [zoom]=15
     [scrollwheel]=false>
         <agm-marker *ngFor="let image of images"
         (mouseOver)="mouseOver(infoWindow)"
@@ -60,6 +85,7 @@
           </agm-info-window>
         </agm-marker>
     </agm-map>
+  </div>
 </section>
 <app-modal [show]="this.showEditModal" (hide)="this.toggleEditModal()">
   <h2 header>Edit Journey</h2>
@@ -93,10 +119,9 @@
   </div>
 </app-modal>
 <app-modal-polaroid
-[image]="this.selectedImage"
+[selectedImage]="this.selectedImage"
+[images]="this.images"
 [show]="this.showPolaroidModal"
 (hide)="this.togglePolaroidModal()"
-(previous)="this.selectPreviousPolaroid()"
-(next)="this.selectNextPolaroid()"
 (imageDeletion)="this.removeImage($event)">
 </app-modal-polaroid>

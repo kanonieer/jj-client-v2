@@ -1,5 +1,11 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter, HostListener } from '@angular/core';
 import { Image } from '../shared/models/Image';
+
+export enum KEY_CODE {
+  RIGHT_ARROW = 39,
+  LEFT_ARROW = 37,
+  ESCAPE = 27
+}
 
 @Component({
   selector: 'app-modal-polaroid',
@@ -8,15 +14,13 @@ import { Image } from '../shared/models/Image';
 })
 export class ModalPolaroidComponent implements OnInit {
 
-  @Input() image: Image;
+  @Input() selectedImage: Image;
+
+  @Input() images: Image[];
 
   @Input() show: Boolean = false;
 
   @Output() hide: EventEmitter<Boolean> = new EventEmitter<Boolean>();
-
-  @Output() next: EventEmitter<Boolean> = new EventEmitter<Boolean>();
-
-  @Output() previous: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
   @Output() imageDeletion: EventEmitter<Image> = new EventEmitter<Image>();
 
@@ -30,11 +34,39 @@ export class ModalPolaroidComponent implements OnInit {
   }
 
   public selectPrevious(): void {
-    this.previous.emit();
+    const position = this.images.indexOf(this.selectedImage);
+
+    if (position === 0) {
+      this.selectedImage = this.images[this.images.length - 1];
+    } else {
+      this.selectedImage = this.images[position - 1];
+    }
   }
 
   public selectNext(): void {
-    this.next.emit();
+    const position = this.images.indexOf(this.selectedImage);
+
+    if (position === this.images.length - 1) {
+      this.selectedImage = this.images[0];
+    } else {
+      this.selectedImage = this.images[position + 1];
+    }
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+
+    if (event.keyCode === KEY_CODE.RIGHT_ARROW && this.show) {
+      this.selectNext();
+    }
+
+    if (event.keyCode === KEY_CODE.LEFT_ARROW && this.show) {
+      this.selectPrevious();
+    }
+
+    if (event.keyCode === KEY_CODE.ESCAPE && this.show) {
+      this.closeModal();
+    }
   }
 
   public emitRemoveImage($event): void {
