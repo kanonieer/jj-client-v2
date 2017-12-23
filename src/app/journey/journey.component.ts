@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import {} from '@types/googlemaps';
-
-import { mapStyles } from './../shared/global/mapStyles';
 import { ImageService } from './../shared/services/image.service';
 import { JourneysService } from './../shared/services/journeys.service';
 import { Journey } from './../shared/models/Journey';
@@ -27,15 +24,6 @@ export class JourneyComponent implements OnInit {
   public showDeleteModal: Boolean = false;
   public showPolaroidModal: Boolean = false;
   public selectedImage: Image;
-  public thumbnailOnMap = null;
-  public longitude: Number = 16.9273255;
-  public latitude: Number = 52.467540;
-  public zoom: Number;
-
-  public staticLongitude: String = '16.9273255';
-  public staticLatitude: String = '52.467540';
-
-  styles: google.maps.MapTypeStyle[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -43,28 +31,12 @@ export class JourneyComponent implements OnInit {
     private journeysService: JourneysService,
     private router: Router
   ) {
-    this.styles = mapStyles;
     this.images = this.activatedRoute.snapshot.data['images'];
     this.journey = this.activatedRoute.snapshot.data['journey'];
     this.description = this.setDescription(this.journey.description);
-
-    this.initMapCoordinates();
-    this.initMapZoom(14);
   }
 
-  ngOnInit() {
-  }
-
-  private initMapCoordinates(): void {
-    if (this.images[0]) {
-      this.longitude = this.convertStringToNumber(this.images[0].longitude);
-      this.latitude = this.convertStringToNumber(this.images[0].latitude);
-    }
-  }
-
-  private initMapZoom(zoom: Number): void {
-    this.zoom = zoom;
-  }
+  ngOnInit() {}
 
   public toggleDescription(): void {
     this.descriptionVisible = !this.descriptionVisible;
@@ -136,21 +108,8 @@ export class JourneyComponent implements OnInit {
     });
   }
 
-  public mouseOver(infoWindow, $event) {
-    if (this.thumbnailOnMap !== null) {
-      this.thumbnailOnMap.close();
-    }
-
-    this.thumbnailOnMap = infoWindow;
-    infoWindow.open();
-  }
-
   private setDescription(description): string {
     return (description !== '') ? description : this.staticDescription;
-  }
-
-  private convertStringToNumber(value: String): number {
-    return +value;
   }
 
   private downloadURI(uri, name): void {
@@ -161,26 +120,4 @@ export class JourneyComponent implements OnInit {
     link.click();
     document.body.removeChild(link);
   }
-
-  // private getCoordinates(images: Image[]): any {
-  //   let minLatitude = images[0].latitude,
-  //   maxLatitude = images[0].latitude,
-  //   minLongitude = images[0].longitude,
-  //   maxLongitude = images[0].longitude;
-
-  //   images.forEach(image => {
-  //     maxLongitude = (image.longitude > maxLongitude) ? image.longitude : maxLongitude;
-  //     minLongitude = (image.longitude < minLongitude) ? image.longitude : minLongitude;
-  //     minLatitude = (image.latitude < minLatitude) ? image.latitude : minLatitude;
-  //     maxLatitude = (image.latitude > maxLatitude) ? image.latitude : maxLatitude;
-  //   });
-
-  //   const latitude =
-  //   (this.convertStringToNumber(minLatitude) + this.convertStringToNumber(maxLatitude)) / 2;
-
-  //   const longitude =
-  //   (this.convertStringToNumber(minLongitude) + this.convertStringToNumber(maxLongitude)) / 2;
-
-  //   return { latitude, longitude };
-  // }
 }

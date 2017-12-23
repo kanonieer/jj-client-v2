@@ -34,6 +34,8 @@ import { ModalPolaroidComponent } from './modal-polaroid/modal-polaroid.componen
 import { RegisterComponent } from './register/register.component';
 import { ImagesResolver } from './shared/services/images.resolve';
 import { FbService } from './shared/services/fb.service';
+import { MapComponent } from './map/map.component';
+import { FavouriteImagesResolver } from './shared/services/favouriteImages.resolve';
 
 
 const cloudConfig = {
@@ -60,7 +62,8 @@ const cloudinaryLib = {
     ModalComponent,
     ProfileComponent,
     ModalPolaroidComponent,
-    RegisterComponent
+    RegisterComponent,
+    MapComponent
   ],
   imports: [
     CloudinaryModule.forRoot(cloudinaryLib, cloudConfig),
@@ -87,7 +90,8 @@ const cloudinaryLib = {
     FbService,
     IsLogged,
     JourneyResolver,
-    ImagesResolver
+    ImagesResolver,
+    FavouriteImagesResolver
   ],
   bootstrap: [AppComponent]
 })

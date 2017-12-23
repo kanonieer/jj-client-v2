@@ -55,37 +55,17 @@
         [public-id]=image._id
         class="thumbnail inline" 
         format="jpg">
-        <cl-transformation height="150" width="150" crop="fit">
+        <cl-transformation height="150" width="150" crop="fill">
         </cl-transformation>
       </cl-image>
     </div>
   </div>
 </section>
-<section class="wrapper-primary">
-  <div class="container wrapper-map">
-    <agm-map 
-    [latitude]="latitude"
-    [longitude]="longitude"
-    [zoom]="this.zoom"
-    [styles]="this.styles"
-    [scrollwheel]=false>
-        <agm-marker *ngFor="let image of images"
-        (mouseOver)="mouseOver(infoWindow)"
-        [longitude]="convertStringToNumber(image.longitude)"
-        [latitude]="convertStringToNumber(image.latitude)">
-          <agm-info-window (click)='showPolaroid(image)' #infoWindow>
-            <cl-image 
-              (click)='showPolaroid(image)'
-              [public-id]=image._id
-              class="thumbnail inline" 
-              format="jpg">
-              <cl-transformation height="150" width="150" crop="fit">
-              </cl-transformation>
-            </cl-image>
-          </agm-info-window>
-        </agm-marker>
-    </agm-map>
-  </div>
+<section>
+  <app-map
+  [images]="this.images"
+  (openImageModal)="showPolaroid($event)">    
+  </app-map>
 </section>
 <app-modal [show]="this.showEditModal" (hide)="this.toggleEditModal()">
   <h2 header>Edit Journey</h2>

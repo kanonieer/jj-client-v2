@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {} from '@types/googlemaps';
-
-import { mapStyles } from './../shared/global/mapStyles';
 import { ImageService } from './../shared/services/image.service';
 import { Image } from './../shared/models/Image';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-gallery',
@@ -13,26 +11,17 @@ import { Image } from './../shared/models/Image';
 export class GalleryComponent implements OnInit {
 
   public images: Image[] = [];
-  lat: Number = 52.467540;
-  lng: Number = 16.927325;
   public selectedImage: Image;
   public showPolaroidModal: Boolean = false;
-  public thumbnailOnMap = null;
 
-  styles: google.maps.MapTypeStyle[] = [];
-
-  constructor(private imageService: ImageService) {
-    this.styles = mapStyles;
-
-    this.imageService.getFavouriteImages()
-    .subscribe(images => this.images = images);
+  constructor(
+    private imageService: ImageService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.images = this.activatedRoute.snapshot.data['images'];
   }
 
   ngOnInit() {
-  }
-
-  private convertStringToNumber(value: string): number {
-    return +value;
   }
 
   public removeImage(image): void {
@@ -41,15 +30,6 @@ export class GalleryComponent implements OnInit {
 
   public togglePolaroidModal(): void {
     this.showPolaroidModal = !this.showPolaroidModal;
-  }
-
-  public mouseOver(infoWindow, $event) {
-    if (this.thumbnailOnMap !== null) {
-      this.thumbnailOnMap.close();
-    }
-
-    this.thumbnailOnMap = infoWindow;
-    infoWindow.open();
   }
 
   public showPolaroid(image: Image): void {

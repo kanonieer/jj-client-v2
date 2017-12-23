@@ -1,0 +1,28 @@
+<div class="container wrapper-map" *ngIf="mapImages.length > 0">
+  <agm-map
+  [latitude]="latitude"
+  [longitude]="longitude"
+  [zoom]="this.zoom"
+  [fitBounds]="this.fitBounds"
+  [styles]="this.styles"
+  [scrollwheel]=false>
+      <agm-marker *ngFor="let image of mapImages"
+      (mouseOver)="mouseOver(infoWindow)"
+      [longitude]="convertStringToNumber(image.longitude)"
+      [latitude]="convertStringToNumber(image.latitude)">
+        <agm-info-window (click)='openModal(image)' #infoWindow>
+          <cl-image 
+            (click)='openModal(image)'
+            [public-id]=image._id
+            class="thumbnail inline" 
+            format="jpg">
+            <cl-transformation height="150" width="150" crop="fit">
+            </cl-transformation>
+          </cl-image>
+        </agm-info-window>
+      </agm-marker>
+  </agm-map>
+</div>
+<div class="container" *ngIf="mapImages.length === 0">
+  <p class="no-map">Enable geolocalization in mobile app to display images on map.</p>
+</div>

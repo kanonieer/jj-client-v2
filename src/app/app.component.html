@@ -7,7 +7,7 @@
       <i class="fa fa-times navbar-toggle-btn" aria-hidden="true" *ngIf="this.navVisible" (click)="this.toggleNavbar()"></i> 
       <ul class="navbar-list">
         <li class="navbar-list__item">
-          <a routerLink="gallery">gallery</a>
+          <a routerLink="favourite">favourites</a>
         </li>
         <li class="navbar-list__item">
           <a routerLink="journeys">journeys</a>
@@ -28,7 +28,7 @@ style="display: none; transition: all 0.7s"
 [style.display]="this.navVisible ? 'flex' : 'none'">
   <ul class="navbar-list-mobile">
     <li class="navbar-list__item">
-      <a routerLink="gallery" (click)="this.toggleNavbar()">gallery</a>
+      <a routerLink="favourite" (click)="this.toggleNavbar()">favourites</a>
     </li>
     <li class="navbar-list__item">
       <a routerLink="journeys" (click)="this.toggleNavbar()">journeys</a>
