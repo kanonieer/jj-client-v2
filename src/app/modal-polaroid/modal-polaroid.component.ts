@@ -24,9 +24,16 @@ export class ModalPolaroidComponent implements OnInit {
 
   @Output() imageDeletion: EventEmitter<Image> = new EventEmitter<Image>();
 
+  public isMobile = false;
+
   constructor() { }
 
   ngOnInit() {
+    this.adjustSize();
+  }
+
+  private adjustSize() {
+    this.isMobile = (window.innerWidth < 768);
   }
 
   public closeModal(): void {

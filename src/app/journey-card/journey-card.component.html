@@ -5,7 +5,10 @@
       [public-id]="journey.background_image_id"
       class="thumbnail inline" 
       format="jpg">
-        <cl-transformation height="400" width="400" crop="fill">
+        <cl-transformation
+        [attr.height]=imageSize
+        [attr.width]=imageSize
+        crop="fill">
         </cl-transformation>
       </cl-image>
     </div>

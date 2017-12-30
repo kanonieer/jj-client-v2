@@ -35,7 +35,7 @@ export class PolaroidComponent implements OnInit {
       version: 'v2.8'
     };
 
-    this.size = Math.floor(window.innerHeight * 0.75);
+    this.size = this.adjustSize();
 
     facebookService.init(initParams);
 
@@ -43,6 +43,10 @@ export class PolaroidComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  private adjustSize() {
+    return (window.innerWidth < 768) ? 380 : Math.floor(window.innerHeight * 0.75);
+  }
 
   public deleteImage(): void {
     this.imageService

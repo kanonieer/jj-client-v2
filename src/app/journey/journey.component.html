@@ -38,7 +38,7 @@
     </div>
     <div class="journey-postcard-image">
       <cl-image
-      *ngIf="journey.background_image_id !== ''"
+      *ngIf="journey.background_image_id !== '' && !this.isMobile()"
       [public-id]="journey.background_image_id"
       class="thumbnail inline" 
       format="jpg">

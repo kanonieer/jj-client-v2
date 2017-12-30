@@ -1,7 +1,7 @@
 <div class="modal-polaroid-container" *ngIf="show">
   <i class="fa fa-times modal-polaroid-container-exit" aria-hidden="true" (click)="closeModal()"></i>
   <div class="modal-polaroid-container-content">
-    <i class="fa fa-arrow-circle-left" aria-hidden="true" (click)="selectPrevious()"></i>
+    <i class="fa fa-arrow-circle-left" *ngIf="!this.isMobile" aria-hidden="true" (click)="selectPrevious()"></i>
     <div>
       <div class="polaroid-center" *ngFor="let image of images">
         <app-polaroid
@@ -11,6 +11,10 @@
         </app-polaroid>
       </div>
     </div>
-    <i class="fa fa-arrow-circle-right" aria-hidden="true" (click)="selectNext()"></i>
+    <i class="fa fa-arrow-circle-right" *ngIf="!this.isMobile" aria-hidden="true" (click)="selectNext()"></i>
+    <div class="modal-polaroid-container-mobile-nav" *ngIf="this.isMobile">
+      <i class="fa fa-arrow-circle-left" aria-hidden="true" (click)="selectPrevious()"></i>
+      <i class="fa fa-arrow-circle-right" aria-hidden="true" (click)="selectNext()"></i>
+    </div>
   </div>
 </div>

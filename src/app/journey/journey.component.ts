@@ -38,6 +38,10 @@ export class JourneyComponent implements OnInit {
 
   ngOnInit() {}
 
+  public isMobile(): Boolean {
+    return (window.innerWidth < 768);
+  }
+
   public toggleDescription(): void {
     this.descriptionVisible = !this.descriptionVisible;
   }

@@ -35,5 +35,4 @@ export const routing = RouterModule.forRoot([
     { path: 'profile', component: ProfileComponent, canActivate: [IsLogged]},
     { path: 'register', component: RegisterComponent },
     { path: '**', redirectTo: 'journeys' }
-
 ]);

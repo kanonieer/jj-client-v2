@@ -73,6 +73,11 @@
             align-items: center;
             transition: all .3s ease-in;
 
+            @media screen and (max-width: @mobile) {
+                width: 300px;
+                height: 300px;
+            }
+
             &:hover {
                 background: rgba(0, 0, 0, 0.6);
                 transition: all .1s ease-in;
