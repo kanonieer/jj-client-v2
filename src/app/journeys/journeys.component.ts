@@ -11,11 +11,15 @@ import { Journey } from './../shared/models/Journey';
 export class JourneysComponent implements OnInit {
   public journeys: Journey[] = [];
   public journeysList: Journey[] = [];
+  public isLoading: Boolean = true;
+  public sortDateReverse: Boolean = false;
+  public sortTitleReverse: Boolean = false;
 
   constructor(private journeysService: JourneysService) {
     this.journeysService
     .getJourneys()
     .subscribe(journeys => {
+      this.isLoading = false;
       this.journeys = journeys;
       this.journeysList = journeys;
      });
@@ -25,6 +29,32 @@ export class JourneysComponent implements OnInit {
   }
 
   public onSearch($event): void {
-    this.journeysList = this.journeys.filter(journey => journey.title.includes($event.target.value));
+    this.journeysList = this.journeys.filter(journey => journey.title.toLowerCase().includes($event.target.value));
+  }
+
+  public sortByTitle(reverse: boolean): void {
+    this.journeysList = this.journeys.sort((a, b) => this.compareTitle(a, b, reverse));
+    this.sortTitleReverse = !this.sortTitleReverse;
+  }
+
+  public sortByDate(reverse: boolean): void {
+    this.journeysList = this.journeys.sort((a, b) => this.compareDate(a, b, reverse));
+    this.sortDateReverse = !this.sortDateReverse;
+  }
+
+  private compareTitle(a: Journey, b: Journey, reverse: boolean) {
+    if (reverse) {
+      return (a.title <= b.title) ? 1 : 0;
+    } else {
+      return (a.title > b.title) ? 1 : 0;
+    }
+  }
+
+  private compareDate(a: Journey, b: Journey, reverse: boolean) {
+    if (reverse) {
+      return (a.date_start <= b.date_start) ? 1 : 0;
+    } else {
+      return (a.date_start > b.date_start) ? 1 : 0;
+    }
   }
 }

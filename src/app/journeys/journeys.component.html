@@ -4,13 +4,15 @@
       <div class="journeys-filters__list-element">
         <p>Sort by:</p>
       </div>
-      <div class="journeys-filters__list-element">
+      <div class="journeys-filters__list-element" (click)="this.sortByDate(this.sortDateReverse)">
         <p>Date</p>
-        <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>
+        <i *ngIf="!this.sortDateReverse" class="fa fa-sort-numeric-asc" aria-hidden="true"></i>
+        <i *ngIf="this.sortDateReverse" class="fa fa-sort-numeric-desc" aria-hidden="true"></i>
       </div>
-      <div class="journeys-filters__list-element">
+      <div class="journeys-filters__list-element" (click)="this.sortByTitle(this.sortTitleReverse)">
         <p>Title</p>
-        <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>
+        <i *ngIf="!this.sortTitleReverse" class="fa fa-sort-alpha-asc" aria-hidden="true"></i>
+        <i *ngIf="this.sortTitleReverse" class="fa fa-sort-alpha-desc" aria-hidden="true"></i>
       </div>
     </div>
     <input placeholder="SEARCH"(keyup)="onSearch($event)"/>
@@ -18,6 +20,10 @@
 </section>
 <section class="wrapper-primary">
   <div class="container flex-container journeys-list">
+    <div *ngIf="this.isLoading">
+      <i class="fa fa-cog fa-spin fa-3x fa-fw journeys-list-spinner"></i>
+      <span class="sr-only">Loading...</span>
+    </div>
     <app-journey-card *ngFor="let journey of journeysList" [journey]='journey'></app-journey-card>
   </div>
 </section>
