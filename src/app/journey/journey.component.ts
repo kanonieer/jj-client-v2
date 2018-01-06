@@ -6,6 +6,7 @@ import { Journey } from './../shared/models/Journey';
 import { Image } from './../shared/models/Image';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -29,7 +30,8 @@ export class JourneyComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private imageService: ImageService,
     private journeysService: JourneysService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.images = this.activatedRoute.snapshot.data['images'];
     this.journey = this.activatedRoute.snapshot.data['journey'];
@@ -106,10 +108,11 @@ export class JourneyComponent implements OnInit {
   }
 
   public getDownloadUrl(): void {
-    this.journeysService.getJourneyImagesZipUrl(this.journey._id)
-    .subscribe(data => {
-      this.downloadURI(data.url, this.journey.title);
-    });
+    this.toastr.info('Downloading zipped images is temporary disabled', 'Info');
+    // this.journeysService.getJourneyImagesZipUrl(this.journey._id)
+    // .subscribe(data => {
+    //   this.downloadURI(data.url, this.journey.title);
+    // });
   }
 
   private setDescription(description): string {

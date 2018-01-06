@@ -13,12 +13,13 @@ import { JourneyResolver } from './shared/services/journey.resolve';
 import { ImagesResolver } from './shared/services/images.resolve';
 import { RegisterComponent } from './register/register.component';
 import { FavouriteImagesResolver } from './shared/services/favouriteImages.resolve';
+import { IsNotLogged } from './shared/global/isNotLogged';
 
 export const routing = RouterModule.forRoot([
 
     { path: '', redirectTo: 'journeys', pathMatch: 'full' },
     { path: 'landing', component: HomeComponent },
-    { path: 'authorize', component: AuthComponent },
+    { path: 'authorize', component: AuthComponent, canActivate: [IsNotLogged] },
     {
         path: 'favourite',
         component: GalleryComponent,
@@ -33,6 +34,6 @@ export const routing = RouterModule.forRoot([
     },
     { path: 'about', component: AboutComponent, canActivate: [IsLogged] },
     { path: 'profile', component: ProfileComponent, canActivate: [IsLogged]},
-    { path: 'register', component: RegisterComponent },
+    { path: 'register', component: RegisterComponent, canActivate: [IsNotLogged] },
     { path: '**', redirectTo: 'journeys' }
 ]);

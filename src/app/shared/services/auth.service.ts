@@ -9,6 +9,7 @@ import { api } from './../global/variables';
 import { handleError } from './../global/errorHandler';
 import { StorageService } from './storage.service';
 import { Resolve } from '@angular/router/src/interfaces';
+import { UserService } from './user.service';
 
 
 @Injectable()
@@ -17,7 +18,8 @@ export class AuthService {
   constructor(
     private _http: Http,
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
 
   private headers = new Headers({'Content-Type': 'application/json'});
@@ -104,7 +106,7 @@ export class AuthService {
     this.storageService.remove('user_id');
     this.storageService.remove('token');
     this.storageService.remove('fb_token');
-    this.router.navigateByUrl('');
-    window.location.reload();
+    this.userService.setIsLogged(false);
+    this.router.navigateByUrl('landing');
   }
 }

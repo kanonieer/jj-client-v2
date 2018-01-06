@@ -32,17 +32,17 @@ export class JourneysComponent implements OnInit {
     this.journeysList = this.journeys.filter(journey => journey.title.toLowerCase().includes($event.target.value));
   }
 
-  public sortByTitle(reverse: boolean): void {
+  public sortByTitle(reverse: Boolean): void {
     this.journeysList = this.journeys.sort((a, b) => this.compareTitle(a, b, reverse));
     this.sortTitleReverse = !this.sortTitleReverse;
   }
 
-  public sortByDate(reverse: boolean): void {
+  public sortByDate(reverse: Boolean): void {
     this.journeysList = this.journeys.sort((a, b) => this.compareDate(a, b, reverse));
     this.sortDateReverse = !this.sortDateReverse;
   }
 
-  private compareTitle(a: Journey, b: Journey, reverse: boolean) {
+  private compareTitle(a: Journey, b: Journey, reverse: Boolean) {
     if (reverse) {
       return (a.title <= b.title) ? 1 : 0;
     } else {
@@ -50,7 +50,7 @@ export class JourneysComponent implements OnInit {
     }
   }
 
-  private compareDate(a: Journey, b: Journey, reverse: boolean) {
+  private compareDate(a: Journey, b: Journey, reverse: Boolean) {
     if (reverse) {
       return (a.date_start <= b.date_start) ? 1 : 0;
     } else {

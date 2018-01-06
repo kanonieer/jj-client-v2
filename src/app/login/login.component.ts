@@ -6,6 +6,7 @@ import { AuthService } from './../shared/services/auth.service';
 import { StorageService } from './../shared/services/storage.service';
 import { ToastrService } from 'ngx-toastr';
 import { FbService } from '../shared/services/fb.service';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +15,12 @@ import { FbService } from '../shared/services/fb.service';
 })
 export class LoginComponent implements OnInit {
 
-  public showForm: Boolean = true;;
+  public showForm: Boolean = true;
 
   constructor(
     private authService: AuthService,
     private storageService: StorageService,
+    private userService: UserService,
     private router: Router,
     private toastr: ToastrService,
     private fbService: FbService
@@ -41,6 +43,7 @@ export class LoginComponent implements OnInit {
     .subscribe((response) => {
       this.storeUser(response);
       this.toastr.success('Signed in!', 'Success');
+      this.userService.setIsLogged(true);
       this.navigateToHomePage();
     }, error => {
       console.log(error);
@@ -58,7 +61,7 @@ export class LoginComponent implements OnInit {
 
   private navigateToHomePage(): void {
     this.router.navigateByUrl('journeys');
-    window.location.reload();
+    //window.location.reload();
   }
 
   public navigateToRegister(): void {

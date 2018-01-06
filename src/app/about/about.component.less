@@ -1,9 +1,26 @@
+@import './../../variables.less';
+
 .about {
-    &-container {
-        min-height: 80vh;
-        padding-top: 50px;   
+    &-container { 
         display: flex;
         flex-direction: column;
-        align-items: center;
+        justify-content: flex-start;
+        align-items: flex-start;
+        color: @text-primary;
+        padding: 50px;;
+        font-size: 22px;
+        line-height: 1.5;
+
+        ul {
+            list-style-type: circle;
+        }
+
+        >* {
+            padding: 20px 0;
+        }
+
+        span {
+            font-weight: bold;
+        }
     }
 }

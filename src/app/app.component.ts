@@ -2,6 +2,7 @@ import { Component, OnChanges } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './shared/services/auth.service';
 import { StorageService } from './shared/services/storage.service';
+import { UserService } from './shared/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -14,13 +15,14 @@ export class AppComponent implements OnChanges {
 
   constructor(
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private userService: UserService
   ) {
-    this.isLogged = !!this.storageService.get('user_id');
+    this.userService.setIsLogged(!!this.storageService.get('user_id'));
+    this.userService.$isLogged.subscribe(isLogged => this.isLogged = isLogged);
   }
 
   ngOnChanges(): void {
-    this.isLogged = !!this.storageService.get('user_id');
   }
 
   public toggleNavbar() {

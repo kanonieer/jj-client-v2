@@ -36,6 +36,7 @@ import { ImagesResolver } from './shared/services/images.resolve';
 import { FbService } from './shared/services/fb.service';
 import { MapComponent } from './map/map.component';
 import { FavouriteImagesResolver } from './shared/services/favouriteImages.resolve';
+import { IsNotLogged } from './shared/global/isNotLogged';
 
 
 const cloudConfig = {
@@ -89,6 +90,7 @@ const cloudinaryLib = {
     ImageService,
     FbService,
     IsLogged,
+    IsNotLogged,
     JourneyResolver,
     ImagesResolver,
     FavouriteImagesResolver
