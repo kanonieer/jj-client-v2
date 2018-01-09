@@ -52,7 +52,6 @@ export class ProfileComponent implements OnInit {
     this.userService.getProfile()
     .subscribe(res => {
       this.user = res.user;
-      console.log(this.user);
       this.hasFacebook = !!this.user.facebook;
       this.hasLocal = !!this.user.local;
     });
@@ -61,7 +60,6 @@ export class ProfileComponent implements OnInit {
   public changeEmail(form: NgForm): void {
     this.authService.changeEmail({form: form.value})
        .subscribe(res => {
-         console.log(res);
          this.toastr.success(res.message, 'Success');
          this.updateProfile();
         }, error => this.toastr.error(error, 'Error'));
@@ -71,7 +69,6 @@ export class ProfileComponent implements OnInit {
   public changePassword(form: NgForm): void {
     this.authService.changePassword({form: form.value})
       .subscribe(res => {
-        console.log(res);
         this.toastr.success(res.message, 'Success');
         this.updateProfile();
       }, error => this.toastr.error(error, 'Error'));
@@ -80,7 +77,6 @@ export class ProfileComponent implements OnInit {
 
   public addFacebook(): void {
     this.fbService.authenticate().then(fb => {
-      console.log('fb: ' + fb);
       const data = {
         user_id: this.storageService.get('user_id'),
         facebook_user_id: fb.facebook_user_id,
@@ -89,7 +85,6 @@ export class ProfileComponent implements OnInit {
 
       this.authService.addFacebookAuth(data).subscribe(res => {
         this.storageService.set('fb_token', fb.facebook_token);
-        console.log(res);
         this.toastr.success(res.message, 'Success');
         this.updateProfile();
       }, error => this.toastr.error(error, 'Error'));
@@ -98,23 +93,13 @@ export class ProfileComponent implements OnInit {
 
   public removeFacebook(): void {
     this.authService.removeFacebookAuth().subscribe(res => {
-      console.log(res);
       this.toastr.success(res.message, 'Success');
       this.updateProfile();
     }, error => this.toastr.error(error, 'Error'));
   }
 
-  // public addLocal(): void {
-  //   this.authService.addLocalAuth({ email: 'test', password: 'test' }).subscribe(res => {
-  //     console.log(res);
-  //     this.toastr.success(res.message, 'Success');
-  //     this.updateProfile();
-  //   }, error => this.toastr.error(error, 'Error'));
-  // }
-
   public addLocalAuthentication(form: NgForm): void {
     this.authService.addLocalAuth(form.value).subscribe(res => {
-      console.log(res);
       this.toastr.success(res.message, 'Success');
       this.updateProfile();
     }, error => this.toastr.error(error, 'Error'));
@@ -123,7 +108,6 @@ export class ProfileComponent implements OnInit {
 
   public removeLocal(): void {
     this.authService.removeLocalAuth().subscribe(res => {
-      console.log(res);
       this.toastr.success(res.message, 'Success');
       this.updateProfile();
     }, error => this.toastr.error(error, 'Error'));

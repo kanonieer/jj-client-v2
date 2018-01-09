@@ -25,14 +25,12 @@ export class RegisterComponent implements OnInit {
   }
 
   public register(form: NgForm) {
-    console.log(form);
     const payload = form.value;
     this.authService.signUp(payload)
     .subscribe(success => {
       this.router.navigateByUrl('authorize');
       this.toastr.success('Account created!', 'Success');
     }, error => {
-      console.log(error);
       this.toastr.error('Username already taken.', 'Error');
     });
   }
@@ -50,7 +48,7 @@ export class RegisterComponent implements OnInit {
          this.storageService.set('token', res.data.access_token);
          this.storageService.set('user_id', res.data.user_id);
          this.navigateToHomePage();
-       }, err => console.log(err));
+       }, err => this.toastr.error('There was an error while authenticating with Facebook', 'Error'));
     });
   }
 

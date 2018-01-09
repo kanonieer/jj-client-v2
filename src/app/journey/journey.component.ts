@@ -91,7 +91,12 @@ export class JourneyComponent implements OnInit {
 
   public deleteJourney(): void {
     this.journeysService.deleteJourney(this.journey._id)
-    .subscribe(success => this.router.navigateByUrl('/journeys'));
+    .subscribe(success => {
+      this.router.navigateByUrl('/journeys');
+      this.toastr.success('Journey successfully deleted', 'Success');
+    }, err => {
+      this.toastr.error('There was a problem while deleting journey', 'Error');
+    });
 
     this.toggleDeleteModal();
   }
@@ -103,6 +108,9 @@ export class JourneyComponent implements OnInit {
     .subscribe(success => {
       this.journey = success.journey;
       this.description = this.setDescription(this.journey.description);
+      this.toastr.success('Journey data successfully updated', 'Success');
+    }, err => {
+      this.toastr.error('There was a problem while updating journey', 'Error');
     });
     this.toggleEditModal();
   }

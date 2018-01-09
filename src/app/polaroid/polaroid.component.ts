@@ -64,7 +64,9 @@ export class PolaroidComponent implements OnInit {
     this.image.tags = form.value.tags;
     this.toggleEditModal();
     this.imageService.updateImage(this.image)
-      .subscribe(data => console.log(data));
+      .subscribe(data => this.toastr.success('Image successfully updated!', 'Success'),
+      err => this.toastr.error('There was problem with image update', 'Error')
+    );
   }
 
   public toggleIsFavourite(isFavourite: Boolean): void {
@@ -101,11 +103,28 @@ export class PolaroidComponent implements OnInit {
 
     this.journeysService.editJourney(payload)
     .subscribe(success => {
-      console.log(success);
       this.toastr.success('Image set as Journey background!', 'Success');
     }, error => {
-      console.log(error);
       this.toastr.error('There was an error while setting background.', 'Error');
     });
+  }
+
+  public downloadImage() {
+    // Get file name from url.
+    const url = 'http://res.cloudinary.com/dzgtgeotp/image/upload/' + this.image._id + '.jpg';
+    const filename = this.image._id.toString();
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = function() {
+      const a = document.createElement('a');
+      a.href = window.URL.createObjectURL(xhr.response); // xhr.response is a blob
+      a.download = filename; // Set the file name.
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    };
+    xhr.open('GET', url);
+    xhr.send();
   }
 }

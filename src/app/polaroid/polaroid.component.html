@@ -18,6 +18,7 @@
       <div class="polaroid-info-tools">        
         <i class="fa fa-facebook" title="Share via Facebook" aria-hidden="true" (click)="share()"></i>          
         <i class="fa fa-pencil" title="Edit image"  aria-hidden="true" (click)="this.toggleEditModal()"></i>
+        <i class="fa fa-download" title="Download image" aria-hidden="true" (click)="downloadImage()"></i>
         <i class="fa fa-picture-o" title="Set as Journey background" aria-hidden="true" (click)="this.setAsJourneyBackground()"></i>
         <i class="fa fa-star-o" aria-hidden="true" title="Set as Favourite" *ngIf="!image.isFavourite" (click)="toggleIsFavourite(true)"></i>
         <i class="fa fa-star"  aria-hidden="true" title="Favourite" *ngIf="image.isFavourite" (click)="toggleIsFavourite(false)"></i>
@@ -29,8 +30,7 @@
 <app-modal [show]="this.showEditModal" (hide)="this.showEditModal = $event">
   <h2 header>Edit Photo</h2>
   <form class="modal-form" #imageForm="ngForm" (ngSubmit)="editImage(imageForm)" content>
-      <input class="modal-form-input" type="text" placeholder="TITLE" name="title" maxlength=30 ngModel>
-      <input class="modal-form-input" type="text" placeholder="TAGS" name="tags" ngModel>      
+      <input class="modal-form-input" type="text" placeholder="TITLE" name="title" maxlength=30 ngModel>    
       <button type="submit" class="button modal-form-button">
         Submit changes
       </button>
