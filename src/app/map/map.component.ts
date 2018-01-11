@@ -30,7 +30,7 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.initMapStyles(mapStyles);
     this.initMapStart(this.images);
-    this.initMapZoom(13);
+    this.initMapZoom(10);
     this.mapImages = this.getImagesForMap(this.images);
     this.fitBounds = this.getMapBounds(this.mapImages);
   }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -6,13 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.less']
 })
 export class HomeComponent implements OnInit {
+  public isLogged: Boolean = false;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private userService: UserService) {
+    this.userService.$isLogged.subscribe(isLogged => this.isLogged = isLogged);
   }
 
-  public downloadApp() {
-    
+  ngOnInit() {
   }
 }

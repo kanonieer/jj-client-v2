@@ -72,7 +72,11 @@ export class PolaroidComponent implements OnInit {
   public toggleIsFavourite(isFavourite: Boolean): void {
     this.image.isFavourite = isFavourite;
     this.imageService.updateImage(this.image)
-      .subscribe(data => console.log(data));
+      .subscribe(success => {
+        this.toastr.success('Image set as favourite', 'Success');
+      }, error => {
+        this.toastr.error('There was an error while setting image as favourite', 'Error');
+      });
   }
 
   public toggleEditModal(): void {
