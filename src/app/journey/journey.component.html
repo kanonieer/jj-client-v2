@@ -24,7 +24,7 @@
 </section>
 <section class="wrapper-primary">
   <div class="container flex-container journey-images">
-    <div class="journey-images-thumbnail" *ngFor="let image of images" (click)='showPolaroid(image)'>
+    <div *ngFor="let image of images" (click)='showPolaroid(image)'>
         <cl-image 
         [public-id]=image._id
         class="thumbnail inline" 
