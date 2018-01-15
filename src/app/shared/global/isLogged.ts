@@ -5,7 +5,6 @@ import { StorageService } from './../services/storage.service';
 
 @Injectable()
 export class IsLogged implements CanActivate {
-
     constructor(
         private router: Router,
         private storageService: StorageService
