@@ -61,7 +61,6 @@ export class LoginComponent implements OnInit {
 
   private navigateToHomePage(): void {
     this.router.navigateByUrl('journeys');
-    //window.location.reload();
   }
 
   public navigateToRegister(): void {
