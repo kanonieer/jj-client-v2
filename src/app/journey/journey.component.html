@@ -10,7 +10,7 @@
         <i class="fa fa-trash-o" title="Delete Journey" aria-hidden="true" (click)="toggleDeleteModal()"></i>
       </div>
     </div>
-    <div class="journey-postcard-image">
+    <div class="journey-images-thumbnail" *ngFor="let image of images" (click)='showPolaroid(image)'>
       <cl-image
       *ngIf="journey.background_image_id !== '' && !this.isMobile()"
       [public-id]="journey.background_image_id"
