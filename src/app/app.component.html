@@ -1,48 +1,5 @@
 <div class="wrapper-primary navbar-fixed">
-    <nav class="container navbar">
-      <a class="navbar-logo" routerLink="landing">
-        <img src="./assets/logo.png"/>
-      </a>
-      <i class="fa fa-bars navbar-toggle-btn" aria-hidden="true" *ngIf="!this.navVisible" (click)="this.toggleNavbar()"></i>
-      <i class="fa fa-times navbar-toggle-btn" aria-hidden="true" *ngIf="this.navVisible" (click)="this.toggleNavbar()"></i> 
-      <ul class="navbar-list">
-        <li class="navbar-list__item">
-          <a routerLink="favourite">favourites</a>
-        </li>
-        <li class="navbar-list__item">
-          <a routerLink="journeys">journeys</a>
-        </li>
-        <li class="navbar-list__item">
-          <a routerLink="profile">profile</a>
-        </li>
-        <li class="navbar-list__item">
-          <a routerLink="about">about</a>
-        </li>
-        <button class="navbar-button" (click)='this.logout()' *ngIf="this.isLogged">Sign out</button>
-      </ul>
-  </nav>
-</div>
-<div class="navbar-clearfix"></div>
-<div class="navbar-mobile"
-style="display: none; transition: all 0.7s"
-[style.display]="this.navVisible ? 'flex' : 'none'">
-  <ul class="navbar-list-mobile">
-    <li class="navbar-list__item">
-      <a routerLink="favourite" (click)="this.toggleNavbar()">favourites</a>
-    </li>
-    <li class="navbar-list__item">
-      <a routerLink="journeys" (click)="this.toggleNavbar()">journeys</a>
-    </li>
-    <li class="navbar-list__item">
-      <a routerLink="profile" (click)="this.toggleNavbar()">profile</a>
-    </li>
-    <li class="navbar-list__item">
-      <a routerLink="about" (click)="this.toggleNavbar()">about</a>
-    </li>
-    <li class="navbar-list__item">
-      <button class="navbar-button" (click)='this.logout()' *ngIf="this.isLogged">Sign out</button>
-    </li>
-  </ul>
+  ...
 </div>
 <router-outlet></router-outlet>
 <app-footer></app-footer>
